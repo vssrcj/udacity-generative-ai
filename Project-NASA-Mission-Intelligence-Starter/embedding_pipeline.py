@@ -27,6 +27,9 @@ import time
 from datetime import datetime
 import argparse
 from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
@@ -689,7 +692,8 @@ def main():
     """Main function"""
     parser = argparse.ArgumentParser(description='ChromaDB Embedding Pipeline for NASA Data')
     parser.add_argument('--data-path', default='.', help='Path to data directories')
-    parser.add_argument('--openai-key', required=True, help='OpenAI API key')
+    parser.add_argument('--openai-key', default=os.getenv('OPENAI_API_KEY'),
+                        help='OpenAI API key (defaults to OPENAI_API_KEY from .env)')
     parser.add_argument('--chroma-dir', default='./chroma_db_openai', help='ChromaDB persist directory')
     parser.add_argument('--collection-name', default='nasa_space_missions_text', help='Collection name')
     parser.add_argument('--embedding-model', default='text-embedding-3-small', help='OpenAI embedding model')
@@ -703,6 +707,9 @@ def main():
     parser.add_argument('--delete-source', help='Delete all documents from a specific source pattern')
     
     args = parser.parse_args()
+
+    if not args.openai_key:
+        parser.error('--openai-key or OPENAI_API_KEY is required')
     
     # Initialize pipeline
     logger.info("Initializing ChromaDB Embedding Pipeline...")

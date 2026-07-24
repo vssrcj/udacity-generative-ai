@@ -10,6 +10,7 @@ import streamlit as st
 import os
 import json
 import pandas as pd
+from dotenv import load_dotenv
 
 import ragas_evaluator
 import rag_client
@@ -17,6 +18,8 @@ import llm_client
 
 from pathlib import Path
 from typing import Dict, List, Optional
+
+load_dotenv()
 
 # RAGAS imports
 try:
