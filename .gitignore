@@ -1,2 +1,6 @@
 .env
 .DS_Store
+chroma_db*/
+*.log
+__pycache__/
+.venv/
