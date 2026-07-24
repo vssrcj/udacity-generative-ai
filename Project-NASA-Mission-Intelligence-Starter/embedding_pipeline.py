@@ -60,10 +60,35 @@ class ChromaEmbeddingPipelineTextOnly:
             chunk_size: Maximum size of text chunks
             chunk_overlap: Overlap between chunks
         """
-        # TODO: Initialize OpenAI client
-        # TODO: Store configuration parameters
-        # TODO: Initialize ChromaDB client
-        # TODO: Create or get collection
+        # Initialize OpenAI client
+        self.openai_client = OpenAI(api_key=openai_api_key)
+
+        # Store configuration parameters
+        self.chroma_persist_directory = chroma_persist_directory
+        self.collection_name = collection_name
+        self.embedding_model = embedding_model
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+
+        # Initialize ChromaDB client
+        self.client = chromadb.PersistentClient(
+            path=chroma_persist_directory,
+            settings=Settings(anonymized_telemetry=False)
+        )
+        embedding_function = OpenAIEmbeddingFunction(
+            api_key=openai_api_key,
+            model_name=embedding_model
+        )
+
+        # Create or get collection
+        self.collection = self.client.get_or_create_collection(
+            name=collection_name,
+            embedding_function=embedding_function,
+            metadata={
+                'description': 'NASA space mission text documents',
+                'embedding_model': embedding_model
+            }
+        )
     
     def chunk_text(self, text: str, metadata: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
         """
@@ -76,11 +101,62 @@ class ChromaEmbeddingPipelineTextOnly:
         Returns:
             List of (chunk_text, chunk_metadata) tuples
         """
-        # TODO: Handle short texts that don't need chunking
-        # TODO: Implement chunking logic with overlap
-        # TODO: Try to break at sentence boundaries
-        # TODO: Create metadata for each chunk
-        pass
+        text = text.strip()
+        if not text:
+            return []
+
+        # Handle short texts that don't need chunking
+        if len(text) <= self.chunk_size:
+            chunk_metadata = metadata.copy()
+            chunk_metadata.update({
+                'chunk_index': 0,
+                'chunk_start': 0,
+                'chunk_end': len(text),
+                'chunk_size': len(text),
+                'total_chunks': 1
+            })
+            return [(text, chunk_metadata)]
+
+        chunks = []
+        start = 0
+        overlap = min(self.chunk_overlap, self.chunk_size - 1)
+
+        # Implement chunking logic with overlap
+        while start < len(text):
+            end = min(start + self.chunk_size, len(text))
+
+            # Try to break at sentence boundaries
+            if end < len(text):
+                sentence_end = max(
+                    text.rfind('. ', start, end),
+                    text.rfind('? ', start, end),
+                    text.rfind('! ', start, end),
+                    text.rfind('\n', start, end)
+                )
+                if sentence_end > start + self.chunk_size // 2:
+                    end = sentence_end + 1
+
+            chunk = text[start:end].strip()
+            if chunk:
+                # Create metadata for each chunk
+                chunk_metadata = metadata.copy()
+                chunk_metadata.update({
+                    'chunk_index': len(chunks),
+                    'chunk_start': start,
+                    'chunk_end': end,
+                    'chunk_size': len(chunk)
+                })
+                chunks.append((chunk, chunk_metadata))
+
+            if end == len(text):
+                break
+            start = end - overlap
+
+        total_chunks = len(chunks)
+        for _, chunk_metadata in chunks:
+            chunk_metadata['total_chunks'] = total_chunks
+
+        return chunks
     
     def check_document_exists(self, doc_id: str) -> bool:
         """
@@ -92,9 +168,11 @@ class ChromaEmbeddingPipelineTextOnly:
         Returns:
             True if document exists, False otherwise
         """
-        # TODO: Query collection for document ID
-        # TODO: Return True if exists, False otherwise
-        pass
+        # Query collection for document ID
+        result = self.collection.get(ids=[doc_id])
+
+        # Return True if exists, False otherwise
+        return bool(result['ids'])
     
     def update_document(self, doc_id: str, text: str, metadata: Dict[str, Any]) -> bool:
         """
@@ -197,20 +275,34 @@ class ChromaEmbeddingPipelineTextOnly:
         Returns:
             Embedding vector
         """
-        # TODO: Call OpenAI embeddings API
-        # TODO: Return embedding vector
-        # TODO: Add error handling
-        pass
+        # Call OpenAI embeddings API
+        try:
+            response = self.openai_client.embeddings.create(
+                model=self.embedding_model,
+                input=[text]
+            )
+
+            # Return embedding vector
+            return response.data[0].embedding
+
+        # Add error handling
+        except openai.OpenAIError as e:
+            logger.error(f"Error generating embedding: {e}")
+            raise
 
     def generate_document_id(self, file_path: Path, metadata: Dict[str, Any]) -> str:
         """
         Generate stable document ID based on file path and chunk position
         This allows for document updates without changing IDs
         """
-        # TODO: Create consistent ID format
-        # TODO: Use mission, source, and chunk_index
+        # Create consistent ID format
+        mission = metadata.get('mission', self.extract_mission_from_path(file_path))
+        source = metadata.get('source', file_path.stem)
+        chunk_index = metadata.get('chunk_index', 0)
+
+        # Use mission, source, and chunk_index
         # Format: mission_source_chunk_0001
-        pass
+        return f"{mission}_{source}_chunk_{chunk_index:04d}"
     
     def process_text_file(self, file_path: Path) -> List[Tuple[str, Dict[str, Any]]]:
         """
@@ -383,15 +475,51 @@ class ChromaEmbeddingPipelineTextOnly:
         
         stats = {'added': 0, 'updated': 0, 'skipped': 0}
         
-        # TODO: Handle different update modes (skip, update, replace)
-        # TODO: Process documents in batches
-        # TODO: For each document:
-        #   - Generate document ID
-        #   - Check if exists
-        #   - Get embedding
-        #   - Add or update in collection
-        # TODO: Return statistics
+        # Handle different update modes (skip, update, replace)
+        if update_mode == 'replace':
+            existing_ids = self.get_file_documents(file_path)
+            if existing_ids:
+                self.collection.delete(ids=existing_ids)
 
+        # Process documents in batches
+        for batch_start in range(0, len(documents), batch_size):
+            batch = documents[batch_start:batch_start + batch_size]
+            ids_to_add = []
+            texts_to_add = []
+            metadatas_to_add = []
+            embeddings_to_add = []
+
+            # For each document:
+            #   - Generate document ID
+            #   - Check if exists
+            #   - Get embedding
+            #   - Add or update in collection
+            for text, metadata in batch:
+                doc_id = self.generate_document_id(file_path, metadata)
+
+                if self.check_document_exists(doc_id):
+                    if update_mode == 'update':
+                        if self.update_document(doc_id, text, metadata):
+                            stats['updated'] += 1
+                    else:
+                        stats['skipped'] += 1
+                    continue
+
+                ids_to_add.append(doc_id)
+                texts_to_add.append(text)
+                metadatas_to_add.append(metadata)
+                embeddings_to_add.append(self.get_embedding(text))
+
+            if ids_to_add:
+                self.collection.add(
+                    ids=ids_to_add,
+                    documents=texts_to_add,
+                    metadatas=metadatas_to_add,
+                    embeddings=embeddings_to_add
+                )
+                stats['added'] += len(ids_to_add)
+
+        # Return statistics
         return stats
     
     def process_all_text_data(self, base_path: str, update_mode: str = 'skip') -> Dict[str, int]:
@@ -418,18 +546,57 @@ class ChromaEmbeddingPipelineTextOnly:
             'missions': {}
         }
         
-        # TODO: Get files to process
-        # TODO: Loop through each file
-        # TODO: Process file and add to collection
-        # TODO: Update statistics
-        # TODO: Handle errors gracefully
+        # Get files to process
+        files_to_process = self.scan_text_files_only(base_path)
+
+        # Loop through each file
+        for file_path in files_to_process:
+            mission = self.extract_mission_from_path(file_path)
+
+            try:
+                # Process file and add to collection
+                documents = self.process_text_file(file_path)
+                document_stats = self.add_documents_to_collection(
+                    documents,
+                    file_path,
+                    update_mode=update_mode
+                )
+
+                # Update statistics
+                stats['files_processed'] += 1
+                stats['total_chunks'] += len(documents)
+                stats['documents_added'] += document_stats['added']
+                stats['documents_updated'] += document_stats['updated']
+                stats['documents_skipped'] += document_stats['skipped']
+
+                mission_stats = stats['missions'].setdefault(mission, {
+                    'files': 0,
+                    'chunks': 0,
+                    'added': 0,
+                    'updated': 0,
+                    'skipped': 0
+                })
+                mission_stats['files'] += 1
+                mission_stats['chunks'] += len(documents)
+                mission_stats['added'] += document_stats['added']
+                mission_stats['updated'] += document_stats['updated']
+                mission_stats['skipped'] += document_stats['skipped']
+
+            # Handle errors gracefully
+            except Exception as e:
+                stats['errors'] += 1
+                logger.error(f"Error processing file {file_path}: {e}")
         
         return stats
     
     def get_collection_info(self) -> Dict[str, Any]:
         """Get information about the ChromaDB collection"""
-        # TODO: Return collection name, document count, metadata
-        pass
+        # Return collection name, document count, metadata
+        return {
+            'collection_name': self.collection.name,
+            'document_count': self.collection.count(),
+            'metadata': self.collection.metadata
+        }
     
     def query_collection(self, query_text: str, n_results: int = 5) -> Dict[str, Any]:
         """
