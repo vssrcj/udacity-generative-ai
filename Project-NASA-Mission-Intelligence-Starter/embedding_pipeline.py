@@ -442,8 +442,41 @@ class ChromaEmbeddingPipelineTextOnly:
         Returns:
             Query results
         """
-        # TODO: Perform test query and return results
-        pass
+        if not isinstance(query_text, str) or not query_text.strip():
+            return {"error": "query_text must be a non-empty string"}
+
+        if isinstance(n_results, bool) or not isinstance(n_results, int) or n_results < 1:
+            return {"error": "n_results must be a positive integer"}
+
+        parsed_query_text = query_text.strip()
+
+        try:
+            collection_size = self.collection.count()
+            if collection_size == 0:
+                logger.warning("Cannot query an empty collection")
+                return {
+                    "ids": [[]],
+                    "documents": [[]],
+                    "metadatas": [[]],
+                    "distances": [[]],
+                }
+
+            result_limit = min(n_results, collection_size)
+            if result_limit < n_results:
+                logger.info(
+                    "Requested %d results, but the collection contains only %d",
+                    n_results,
+                    collection_size,
+                )
+
+            return self.collection.query(
+                query_texts=[parsed_query_text],
+                n_results=result_limit,
+                include=["documents", "metadatas", "distances"],
+            )
+        except Exception as exc:
+            logger.error("Error querying collection: %s", exc)
+            return {"error": str(exc)}
     
     def get_collection_stats(self) -> Dict[str, Any]:
         """Get detailed statistics about the collection"""
