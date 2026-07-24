@@ -42,6 +42,7 @@ def discover_chroma_backends() -> Dict[str, Dict[str, str]]:
     return rag_client.discover_chroma_backends()
 
 #@st.cache_resource
+@st.cache_resource
 def initialize_rag_system(chroma_dir: str, collection_name: str):
     """Initialize the RAG system with specified backend (cached for performance)"""
 
@@ -130,7 +131,11 @@ def main():
         
         if not available_backends:
             st.error("No ChromaDB backends found!")
-            st.info("Please run the embedding pipeline first:\n`python run_text_embedding.py`")
+            st.info(
+                "Please run the embedding pipeline first:\n"
+                "`python embedding_pipeline.py --openai-key YOUR_KEY "
+                "--data-path ./data_text`"
+            )
             st.stop()
         
         # Backend selection
@@ -171,6 +176,11 @@ def main():
         # Retrieval settings
         st.subheader("🔍 Retrieval Settings")
         n_docs = st.slider("Documents to retrieve", 1, 10, 3)
+        mission_filter = st.selectbox(
+            "Mission filter",
+            options=["All", "Apollo 11", "Apollo 13", "Challenger"],
+            help="Optionally restrict retrieval to one NASA mission"
+        )
         
         # Evaluation settings
         st.subheader("📊 Evaluation Settings")
@@ -217,7 +227,8 @@ def main():
                 docs_result = retrieve_documents(
                     collection, 
                     prompt, 
-                    n_docs
+                    n_docs,
+                    mission_filter
                 )
                 
                 # Format context

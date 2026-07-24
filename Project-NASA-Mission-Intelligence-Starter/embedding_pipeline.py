@@ -511,9 +511,15 @@ class ChromaEmbeddingPipelineTextOnly:
                 ids_to_add.append(doc_id)
                 texts_to_add.append(text)
                 metadatas_to_add.append(metadata)
-                embeddings_to_add.append(self.get_embedding(text))
 
             if ids_to_add:
+                response = self.openai_client.embeddings.create(
+                    model=self.embedding_model,
+                    input=texts_to_add
+                )
+                embeddings_to_add = [
+                    item.embedding for item in response.data
+                ]
                 self.collection.add(
                     ids=ids_to_add,
                     documents=texts_to_add,
@@ -777,6 +783,12 @@ def main():
             for i, doc in enumerate(results['documents'][0][:3]):  # Show top 3
                 logger.info(f"Result {i+1}: {doc[:200]}...")
     
+    if stats['errors']:
+        logger.error(
+            f"Pipeline completed with {stats['errors']} file processing errors"
+        )
+        raise SystemExit(1)
+
     logger.info("Pipeline completed successfully!")
 
 if __name__ == "__main__":
