@@ -448,8 +448,6 @@ class ChromaEmbeddingPipelineTextOnly:
         if isinstance(n_results, bool) or not isinstance(n_results, int) or n_results < 1:
             return {"error": "n_results must be a positive integer"}
 
-        parsed_query_text = query_text.strip()
-
         try:
             collection_size = self.collection.count()
             if collection_size == 0:
@@ -470,7 +468,7 @@ class ChromaEmbeddingPipelineTextOnly:
                 )
 
             return self.collection.query(
-                query_texts=[parsed_query_text],
+                query_texts=[query_text.strip()],
                 n_results=result_limit,
                 include=["documents", "metadatas", "distances"],
             )
