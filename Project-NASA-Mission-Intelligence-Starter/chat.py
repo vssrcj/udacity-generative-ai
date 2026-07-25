@@ -175,7 +175,7 @@ def main():
         
         # Retrieval settings
         st.subheader("🔍 Retrieval Settings")
-        n_docs = st.slider("Documents to retrieve", 1, 10, 3)
+        n_docs = st.slider("Documents to retrieve", 1, 10, 5)
         mission_filter = st.selectbox(
             "Mission filter",
             options=["All", "Apollo 11", "Apollo 13", "Challenger"],

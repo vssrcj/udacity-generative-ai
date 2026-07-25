@@ -72,6 +72,7 @@ class ChromaEmbeddingPipelineTextOnly:
         self.embedding_model = embedding_model
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
+        self.batch_size = 50
 
         # Initialize ChromaDB client
         self.client = chromadb.PersistentClient(
@@ -568,6 +569,7 @@ class ChromaEmbeddingPipelineTextOnly:
                 document_stats = self.add_documents_to_collection(
                     documents,
                     file_path,
+                    batch_size=self.batch_size,
                     update_mode=update_mode
                 )
 
@@ -727,6 +729,7 @@ def main():
         chunk_size=args.chunk_size,
         chunk_overlap=args.chunk_overlap
     )
+    pipeline.batch_size = args.batch_size
     
     # Handle delete source operation
     if args.delete_source:

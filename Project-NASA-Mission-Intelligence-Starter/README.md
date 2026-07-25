@@ -323,6 +323,16 @@ When submitting your completed project:
 4. Document any additional features or improvements you added
 5. Provide sample queries and expected responses
 
+### Project Report
+
+- **Challenge:** Large transcript embedding requests were batched, and the
+  pipeline now exits with an error if any file fails.
+- **Improvements:** Added mission filtering and support for both `.env` and
+  `--openai-key`.
+- **Test result:** Processed 12 files into 16,567 chunks with zero errors.
+- **Sample query:** “What happened to Apollo 13's oxygen tank?” correctly
+  explains the aborted landing and use of the lunar module as a lifeboat.
+
 ---
 
 **Good luck with your RAG system implementation!** This project will give you hands-on experience with modern AI application development, from data processing to user interface design. Take your time with each component and don't hesitate to experiment with different approaches and parameters.
