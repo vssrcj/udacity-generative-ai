@@ -21,6 +21,9 @@ By completing this project, students will learn to:
 ├── llm_client.py           # OpenAI LLM client wrapper (TODO-based)
 ├── rag_client.py           # RAG system client (TODO-based)
 ├── ragas_evaluator.py      # RAGAS evaluation metrics (TODO-based)
+├── batch_evaluate.py       # Batch retrieval, generation, and RAGAS evaluation
+├── test_questions.json     # Mission evaluation questions and reference answers
+├── evaluation_results.json # Saved output of the last batch evaluation run
 ├── requirements.txt        # Python dependencies
 └── README.md              # This file
 ```
@@ -201,6 +204,51 @@ data_text/
    scores = evaluate_response_quality("question", "answer", ["context"])
    print(scores)
    ```
+
+### **Batch Evaluation**
+
+`test_questions.json` contains the repeatable evaluation set used by
+`batch_evaluate.py`. It is a JSON array whose records have the following fields:
+
+```json
+{
+  "id": "apollo11-overview-001",
+  "mission": "apollo_11",
+  "category": "overview",
+  "question": "What was the primary purpose of the Apollo 11 mission?",
+  "reference_answer": "The purpose of Apollo 11 was to land men on the lunar surface and return them safely to Earth.",
+  "source_file": "data_text/apollo11/NASA_NTRS_Archive_19710015566_textract_full_text.txt"
+}
+```
+
+The `mission` values match the mission metadata stored in ChromaDB, while
+`source_file` records the bundled document used to verify each reference
+answer.
+
+The dataset includes mission-relevant questions across Apollo 11, Apollo 13,
+and Challenger. Its categories cover mission overview, emergency response,
+disaster analysis, crew, technical systems, and mission timeline topics.
+
+For a full end-to-end run, first create the default ChromaDB collection as
+shown below, set `OPENAI_API_KEY`, and then run the batch evaluator with its
+defaults:
+
+```bash
+python embedding_pipeline.py --data-path ./data_text
+python batch_evaluate.py
+```
+
+The full run retrieves context and generates an answer for every question,
+calls `evaluate_response_quality` for each generated answer, and then reports
+per-question RAGAS metrics plus aggregate summary statistics for every metric.
+It also writes the complete questions, reference answers, generated answers,
+retrieved contexts, per-question scores, and aggregate metrics to
+`evaluation_results.json`.
+
+Four metrics are reported per question. `answer_relevancy`, `faithfulness`, and
+`llm_context_precision_without_reference` come from `evaluate_response_quality`
+and need no reference answer, while `semantic_similarity` scores each generated
+answer against the `reference_answer` field in the dataset.
 
 ### **Integration Testing**
 

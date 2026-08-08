@@ -26,7 +26,7 @@ def evaluate_response_quality(question: str, answer: str, contexts: List[str]) -
     """Evaluate response quality using RAGAS metrics"""
     if not RAGAS_AVAILABLE:
         return {"error": "RAGAS not available"}
-    
+
     openai_key = (
         os.getenv("CHROMA_OPENAI_API_KEY")
         or os.getenv("OPENAI_API_KEY")

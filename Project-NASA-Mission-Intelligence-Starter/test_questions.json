@@ -1,0 +1,50 @@
+[
+  {
+    "id": "apollo11-overview-001",
+    "mission": "apollo_11",
+    "category": "overview",
+    "question": "What was the primary purpose of the Apollo 11 mission?",
+    "reference_answer": "The purpose of Apollo 11 was to land men on the lunar surface and return them safely to Earth.",
+    "source_file": "data_text/apollo11/NASA_NTRS_Archive_19710015566_textract_full_text.txt"
+  },
+  {
+    "id": "apollo13-crew-001",
+    "mission": "apollo_13",
+    "category": "crew",
+    "question": "Who were the three Apollo 13 crew members, and what role did each hold?",
+    "reference_answer": "Jim Lovell was spacecraft commander, Jack Swigert was command module pilot, and Fred Haise was lunar module pilot.",
+    "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt"
+  },
+  {
+    "id": "apollo13-emergency-001",
+    "mission": "apollo_13",
+    "category": "emergency",
+    "question": "What system failures caused Apollo 13 to cancel its lunar landing, and how was the lunar module used afterward?",
+    "reference_answer": "At about 55 hours 58 minutes ground elapsed time, the crew reported a main bus B undervoltage; pressure then fell rapidly in Service Module oxygen tank 2, and fuel cells 1 and 3 failed. NASA scrubbed the landing, continued on a lunar-flyby deep-space-abort trajectory, and used the lunar module as a lifeboat whose consumables provided life support for the return to Earth.",
+    "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt"
+  },
+  {
+    "id": "apollo13-technical-001",
+    "mission": "apollo_13",
+    "category": "technical_systems",
+    "question": "What two critical functions depended on the cryogenic oxygen in Apollo 13's Service Module?",
+    "reference_answer": "The Service Module's cryogenic oxygen supported the fuel cells that generated electrical power and also supplied breathing oxygen for the crew.",
+    "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt"
+  },
+  {
+    "id": "challenger-disaster-001",
+    "mission": "challenger",
+    "category": "disaster_analysis",
+    "question": "After the call 'Obviously a major malfunction,' what did Mission Control report about the downlink and vehicle, and what contingency actions followed?",
+    "reference_answer": "Mission Control reported that there was no downlink and that the flight dynamics officer said the vehicle had exploded. The flight director checked with recovery forces, activated contingency procedures, and began monitoring contingency and recovery operations downrange.",
+    "source_file": "data_text/challenger/108-AAG_STS-51L_Mission_Audio_transcript.txt"
+  },
+  {
+    "id": "apollo11-timeline-001",
+    "mission": "apollo_11",
+    "category": "mission_timeline",
+    "question": "At what ground elapsed time did Eagle land in the Sea of Tranquility, and at what later ground elapsed time did Commander Neil Armstrong make first contact with the lunar surface?",
+    "reference_answer": "The lunar module landed in the Sea of Tranquility at 102:45:40 ground elapsed time. The commander made first contact with the lunar surface at 109:24:15 ground elapsed time.",
+    "source_file": "data_text/apollo11/NASA_NTRS_Archive_19710015566_textract_full_text.txt"
+  }
+]

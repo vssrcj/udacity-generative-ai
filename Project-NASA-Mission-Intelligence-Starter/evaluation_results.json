@@ -1,0 +1,163 @@
+{
+  "questions_evaluated": 6,
+  "results": [
+    {
+      "id": "apollo11-overview-001",
+      "mission": "apollo_11",
+      "category": "overview",
+      "question": "What was the primary purpose of the Apollo 11 mission?",
+      "reference_answer": "The purpose of Apollo 11 was to land men on the lunar surface and return them safely to Earth.",
+      "source_file": "data_text/apollo11/NASA_NTRS_Archive_19710015566_textract_full_text.txt",
+      "generated_answer": "The primary purpose of the Apollo 11 mission was to perform a manned lunar landing and return safely to Earth. This information is based on the assessment of mission objectives outlined in a NASA Headquarters document titled \"Apollo Flight Mission Assignments\" prepared on July 11, 1969 (Source 2).",
+      "retrieved_contexts": [
+        "rs after landing.\nWith the completion of the Apollo 11 mission, the national objective, landing men\non the moon and returning them safely to earth before the end of the decade, had been\naccomplished.\n2. INTRODUCTION\nThe Apollo 11 mission was the 11th in a series of flights using Apollo flight hard-\nware and was the first lunar landing mission of the Apollo Program. It was also the fifth\nmanned flight of the command and service modules and the third manned flight of the lunar\nmodule.",
+        "ng Laboratory\n10:00\nJuly 30, 1969\nCommand module delivered to Lunar Receiving Laboratory\n23:17\n173\n\n--- PAGE 186 ---\n14. ASSESSMENT OF MISSION OBJECTIVES\nThe single primary mission objective for the Apollo 11 mission (as defined in the\nNASA Headquarters document OMSF M-D MA 500-11 (SE 010-000-1) entitled \"Apollo Flight\nMission Assignments\" and prepared July 11, 1969) was to perform a manned lunar land-\ning and return safely to earth. In addition to the single primary objective, 11 sec-",
+        "the integral second before lift-off. Range zero for this mission\nwas 13:32:00 G.m.t., July 16, 1969. All references to mileage distance are in nautical\nmiles.\n3. MISSION DESCRIPTION\nThe Apollo 11 mission accomplished the basic mission of the Apollo Program, that\nis, to land two men on the lunar surface and return them safely to earth. As a part of\nthis first lunar landing, three basic experiment packages were deployed, lunar material\nsamples were collected, and surface photographs were taken.",
+        "watt-hour\nX, Y, Z\nspacecraft axes\n°C\ndegrees Centigrade\nix\n\n--- PAGE 12 ---\n°F\ndegrees Fahrenheit\na\nangle of attack\nH\nmi cro-\n\n--- PAGE 13 ---\n1. SUMMARY\nThe purpose of the Apollo 11 mission was to land men on the lunar surface and to\nreturn them safely to earth. The members of the crew were Neil A. Armstrong, Commander;\nMichael Collins, Command Module Pilot; and Edwin E. Aldrin, Jr., Lunar Module Pilot.\nThe space vehicle was launched from Kennedy Space Center, Florida, at 8:32:00 a.m.",
+        "t packages were deployed, lunar material\nsamples were collected, and surface photographs were taken. Two of the experiments were\na part of the early Apollo scientific experiment package that was developed for deploy-\nment on the lunar surface. The sequence of events and the flight plan of the Apollo 11\nmission are shown in table 3-I and figure 3-1, respectively.\nThe Apollo 11 space vehicle was launched on July 16, 1969, at 8:32 a.m. e.s.t., as\nplanned."
+      ],
+      "scores": {
+        "answer_relevancy": 1.0,
+        "faithfulness": 0.75,
+        "llm_context_precision_without_reference": 0.99999999998,
+        "semantic_similarity": 0.8173591336276202
+      }
+    },
+    {
+      "id": "apollo13-crew-001",
+      "mission": "apollo_13",
+      "category": "crew",
+      "question": "Who were the three Apollo 13 crew members, and what role did each hold?",
+      "reference_answer": "Jim Lovell was spacecraft commander, Jack Swigert was command module pilot, and Fred Haise was lunar module pilot.",
+      "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt",
+      "generated_answer": "Based on the provided context, the three Apollo 13 crew members were Jim Lovell, Fred Haise, and Jack Swigert. Jim Lovell was the spacecraft commander (SC), Fred Haise was one of the crew members, and Jack Swigert was also one of the crew members.",
+      "retrieved_contexts": [
+        ", and Joe Engle is here, Tom Stafford,\nchief of the astronaut office, Vance Brandt, who served as a\nsupport crew member for Apollo 13.\nIWO JIMA Which swim aircraft remains out?\nRECOVERY This is Recovery. Negative (garbled)\nIWO JIMA Roger, Swim 1, we're moving in. You\nbabies ready?\n???\n(garbled)\nPAO\nGene Cernan, backup commander for Apollo 14\nis here, Tony England, who served as the scientist for the\nApollo 13 crew is in the room at this time as is John Young.\nIWO JIMA (garbled) Rescue 1.\n???",
+        "e individual crew's first names. \"\nTranscription of these tapes was managed by David M. Goldenbaum,\nTest Division, Apollo Spacecraft Program Office, to whom questions re-\ngarding this document should be referred.\n\n--- PAGE 4 ---\niii\nACRONYM LIST\nBecause specialized readers of the Apollo 13 transcription, such as\nthe principal investigators, may not be thoroughly familiar with the\nacronyms used during the mission, the decision was made to define those\nacronyms that probably will be encountered.",
+        "heir lunar charts before turning in for the\n10 hours rest period. At this time Apollo 13 is 131 948\nnautical miles from earth, travelling at a speed of 4 368\nfeet per second. At 34 hours 43 minutes this is Mission\nControl, Houston.\nCAPCOM\nApollo 13, Houston.\nSC\nGo ahead, Houston.\nCAP COM Just info on your PTC, Jim. It's\nlooking very good. Just excursions and pitch and yaw are\nvery low.\nSC\nOkay. Thank you and we're going\nto change another lithium hydroxide canister now.\nCAP COM\nOkay.\nSC",
+        "g the crew physical status, reporting\nthat they've taken no medication and they're all feeling\nfine. Prior to that, Fred Haise gave us an out-the-window\ndescription of the earth and moon. Fred also played back\na short sample of the music that they have on board the\nspacecraft and reported that the food was fine. Apollo 13\nat this time is 137 250 nautical miles from earth, travelling\nat a speed of 4 219 feet per second. The crew should be\nbeginning their scheduled 10 hour rest period, shortly.",
+        "e Building 1 auditorium (main auditorium).\nThe participants will be the Maroon team Flight Director\nMilt Windler and retrofire officer from that team Tom Weichel\nChanges in procedure - the spacecraft power up and checklist\nbeing passed up by Joe Kerwin went to the crew. We've had no\nbio-medical telemetry in the last several hours from the crew\nand there's been no report of any medication having been\ntaken by the crew of Apollo 13. Distance now from Earth,"
+      ],
+      "scores": {
+        "answer_relevancy": 0.9190948146918033,
+        "faithfulness": 0.3333333333333333,
+        "llm_context_precision_without_reference": 0.0,
+        "semantic_similarity": 0.7168760587574001
+      }
+    },
+    {
+      "id": "apollo13-emergency-001",
+      "mission": "apollo_13",
+      "category": "emergency",
+      "question": "What system failures caused Apollo 13 to cancel its lunar landing, and how was the lunar module used afterward?",
+      "reference_answer": "At about 55 hours 58 minutes ground elapsed time, the crew reported a main bus B undervoltage; pressure then fell rapidly in Service Module oxygen tank 2, and fuel cells 1 and 3 failed. NASA scrubbed the landing, continued on a lunar-flyby deep-space-abort trajectory, and used the lunar module as a lifeboat whose consumables provided life support for the return to Earth.",
+      "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt",
+      "generated_answer": "The system failures that caused Apollo 13 to cancel its lunar landing were the failure of the service module liquid oxygen tank number 2 and fuel cells 1 and 3 (Source 1). Following the system failures, a decision was made to scrub any attempt at landing and continue on a lunar fly-by deep space abort type mission. The lunar module was then used as a sort of lifeboat to come back to Earth using its consumables for life support (Source 1).",
+      "retrieved_contexts": [
+        "in the service module liquid oxygen tank\nnumber 2 and fuel cells 1 and 3 failed shortly thereafter.\nA decision was made to scrub any attempt at landing and con-\ntinue on a lunar fly-by deep space abort type mission. The\nincreased load on fuel cell 2 and the dropping pressure in\nthe remaining liquid oxygen tank led to the decision to use\nthe lunar module for a sort of lifeboat to come back to\nearth using its consumables for life support. The remainder",
+        "ion system of the Lunar Module would do the burn - the\nvelocity change would be 7.6 feet per second. This burn\nwould place the Apollo 13 spacecraft back on the entry\ncorridor for entry into the South Central Pacific. Another\naspect of timing the maneuver at 105:30 instead of the\nearlier discussed 104 hours, is that it is expected that\nsuper-critical helium burst disk in the lunar module descent\nstage is likely to let go at about - about this time frame",
+        "equate margins of propellant and\nwith Apollo 11 the landing was made. And Apollo 12 was essentially\na repeat as far as the amount of propellants and the spacecraft\nperformance were concerned. At any rate, all of these had\nsmaller amounts or smaller quantities of propellant available\nthan Apollo 13 does at the present time. The service pro-\npulsion system propellant on Apollo 13 stand untapped at\n40 796 pounds. This was for planned total DELTA-V or velocity",
+        "rvice module is scheduled to be jettisoned. At that\ntime Jack Swigert will be in the command module. Jim Lovell\nand Fred Haise in the lunar module. Lovell will fire the\nlunar module thrust to push the service module about 1/2\nfoot per second. Swigert, then, activates the pyros with\na switch in the command module. After separation, Apollo 13\nwill back off with the lunar module reaction control system\nat 1/2 foot per second providing a separation DELTA velocity\nof 1 foot per second.",
+        "l pressure carbon dioxide in the lunar\nmodule cabin 1/10th of a millimeter of mercury. The addition\nof the 2 command module lithium hydroxide scrubber canisters\nto the homemade device rigged up yesterday by the crew of\nApollo 13 has reduced this quantity of carbon dioxide from\nslightly over 1 millimeter piped down to 1/10th. Apollo 13\ntotal weight standing at 87 740 pounds. There goes a call I\nbelieve to the spacecraft.\nPAO\nApparently it was an accidental nudge of"
+      ],
+      "scores": {
+        "answer_relevancy": 0.8348502600133596,
+        "faithfulness": 1.0,
+        "llm_context_precision_without_reference": 0.9999999999,
+        "semantic_similarity": 0.7526010106581165
+      }
+    },
+    {
+      "id": "apollo13-technical-001",
+      "mission": "apollo_13",
+      "category": "technical_systems",
+      "question": "What two critical functions depended on the cryogenic oxygen in Apollo 13's Service Module?",
+      "reference_answer": "The Service Module's cryogenic oxygen supported the fuel cells that generated electrical power and also supplied breathing oxygen for the crew.",
+      "source_file": "data_text/apollo13/AS13_PAO_textract_full_text.txt",
+      "generated_answer": "Two critical functions that depended on the cryogenic oxygen in Apollo 13's Service Module were providing the electrical power system coming out of the fuel cells and supplying breathing oxygen for the crew (Source 1).",
+      "retrieved_contexts": [
+        "n the cryogenic oxygen in the Service\nModule, which provides the electrical power system coming out\nof the fuel cells, and also, breathing oxygen for the crew.\nNow in the process of manning the Lunar Module. Standby.\nCAPCOM We would like for you to go to Activation\n12, Step 3, which is get the batteries in high taps. Over.\nSC\nOkay. How you going there? Activation\n12, Step 3.\nP AO\nUnder this alternate mission, the Lunar\nModule would serve as a lifeboat to bring the Apollo 13 crew\nback to Earth.",
+        "in the service module liquid oxygen tank\nnumber 2 and fuel cells 1 and 3 failed shortly thereafter.\nA decision was made to scrub any attempt at landing and con-\ntinue on a lunar fly-by deep space abort type mission. The\nincreased load on fuel cell 2 and the dropping pressure in\nthe remaining liquid oxygen tank led to the decision to use\nthe lunar module for a sort of lifeboat to come back to\nearth using its consumables for life support. The remainder",
+        "e command module. Isolating\nthe search tank leaves oxygen for entry if this should become\nnecessary. Also, if necessary, the 13 crew could open a\ntunnel and use oxygen from the lunar module.\nCAPCOM\nApollo 13, how do you read.\nCAP COM Okay, 13, this is HOuston. It appears that\nwe are losing 02 flow -\nEND OF TAPE\n\n--- PAGE 242 ---\nAPOLLO 13 MISSION COMMENTARY 4-13-70 CST 10:10P GET 56:57:00 175/1\nCAP COM Okay 13, this is Houston. It appears",
+        "1 fans ON and Tank 1 heaters ON.\nCAP COM\nThat's affirm.\nSC\nFuel cell 2 pump going off now.\nCAP COM\nJack, leave them both ON in Tank 1.\nSC\nOkay.\nCAP COM\n13, Houston. Read that AOS on the LM\nagain.\nSC\nOkay.\nP AO\nThis is Apollo Control at 57 hours 58\nminutes ground elapsed time. To recap briefly the situation\nhere in Mission Control Center, we have an apparently serious\nproblem with a leak in the cryogenic oxygen in the Service\nModule, which provides the electrical power system coming out",
+        "l pressure carbon dioxide in the lunar\nmodule cabin 1/10th of a millimeter of mercury. The addition\nof the 2 command module lithium hydroxide scrubber canisters\nto the homemade device rigged up yesterday by the crew of\nApollo 13 has reduced this quantity of carbon dioxide from\nslightly over 1 millimeter piped down to 1/10th. Apollo 13\ntotal weight standing at 87 740 pounds. There goes a call I\nbelieve to the spacecraft.\nPAO\nApparently it was an accidental nudge of"
+      ],
+      "scores": {
+        "answer_relevancy": 0.9912005882519644,
+        "faithfulness": 1.0,
+        "llm_context_precision_without_reference": 0.999999999975,
+        "semantic_similarity": 0.7579318709648124
+      }
+    },
+    {
+      "id": "challenger-disaster-001",
+      "mission": "challenger",
+      "category": "disaster_analysis",
+      "question": "After the call 'Obviously a major malfunction,' what did Mission Control report about the downlink and vehicle, and what contingency actions followed?",
+      "reference_answer": "Mission Control reported that there was no downlink and that the flight dynamics officer said the vehicle had exploded. The flight director checked with recovery forces, activated contingency procedures, and began monitoring contingency and recovery operations downrange.",
+      "source_file": "data_text/challenger/108-AAG_STS-51L_Mission_Audio_transcript.txt",
+      "generated_answer": "After the call 'Obviously a major malfunction,' Mission Control reported that they had no downlink and received a report from the flight dynamics officer that the vehicle had exploded (Source 1). Following this, they mentioned that contingency procedures were in effect and they were checking with recovery forces to see what could be done at that point (Source 3). Additionally, they stated that they were looking at all contingency operations and awaiting word from any recovery forces in the downrange field (Source 2).",
+      "retrieved_contexts": [
+        "seconds Velocity 2900 ft per second Altitude 9 nautical miles downrange distance 7 nautical miles\n\n[146:44] spk_5: Flight controllers here looking very carefully at the situation\n\n[146:49] spk_5: Obviously a major malfunction\n\n[146:53] spk_5: We have no down link\n\n[146:56] spk_5: We have a report from the flight dynamics officer that the vehicle has exploded Flight director confirms that we're looking at uh checking with the recovery forces to see uh what can be done at this point",
+        "ayed through the flight dynamics officer\n\n[147:24] spk_5: that the vehicle has exploded We are now\n\n[147:27] spk_5: Looking at uh all the contingency operations and awaiting word from any recovery of forces in the down range field\n\n[147:39] spk_5: This is Mission Control Houston We have no additional word at this time\n\n[147:47] spk_5: Reports from the flight dynamics officer indicate that the vehicle uh",
+        "hat we're looking at uh checking with the recovery forces to see uh what can be done at this point\n\n[147:09] spk_5: Contingency procedures are in effect\n\n[147:14] spk_5: We will report uh more as we have information available\n\n[147:19] spk_5: Again to repeat uh we have a report uh relayed through the flight dynamics officer\n\n[147:24] spk_5: that the vehicle has exploded We are now",
+        "use of a continuing falling debris and at about this time are being admitted uh to the impact area\n\n[153:27] spk_5: Contingency procedures are in effect and following those procedures all of the data available in in Mission Control uh from the flight at the point uh or up to the point of the incident uh data is being secured and will be carefully evaluated",
+        "we'll switch to the Johnson Space Center's Mission Control for a report on what's happening there\n\n[140:57] spk_3: And this is Mission Control Houston Flight controllers here in the Mission Control room uh flight control room 2 have been on station for a couple of shifts uh monitoring the orbiter systems as we lead down to launch\n\n[141:10] spk_3: Orbiter systems are in good shape and ah"
+      ],
+      "scores": {
+        "answer_relevancy": 0.7960152964114063,
+        "faithfulness": 1.0,
+        "llm_context_precision_without_reference": 0.9999999999666667,
+        "semantic_similarity": 0.8810953938285515
+      }
+    },
+    {
+      "id": "apollo11-timeline-001",
+      "mission": "apollo_11",
+      "category": "mission_timeline",
+      "question": "At what ground elapsed time did Eagle land in the Sea of Tranquility, and at what later ground elapsed time did Commander Neil Armstrong make first contact with the lunar surface?",
+      "reference_answer": "The lunar module landed in the Sea of Tranquility at 102:45:40 ground elapsed time. The commander made first contact with the lunar surface at 109:24:15 ground elapsed time.",
+      "source_file": "data_text/apollo11/NASA_NTRS_Archive_19710015566_textract_full_text.txt",
+      "generated_answer": "Eagle landed in the Sea of Tranquility at 102:45:40 ground elapsed time (g.e.t.). Commander Neil Armstrong made first contact with the lunar surface at 109:24:15 g.e.t.",
+      "retrieved_contexts": [
+        "aneously with\ntouchdown in the Sea of Tranquility. The coordinates of the actual landing point were\nlatitude 0°41'15\" N and longitude 23°26' E, compared with the planned landing point of\nlatitude 0°43'53\" N and longitude 23°38'51\" E. These coordinates are referenced to\nLunar Map ORD-II-6(100), first edition, dated December 1967.\nA 2-hour postlanding checkout was completed, followed by a partial power-down of\nthe spacecraft. A crew rest period was planned to precede the extravehicular activity",
+        "mately 305 meters (1000\nft) downrange. The spacecraft landed in the Sea of Tranquility at\n102:45:40. The landing coordinates were 0.647 degree north latitude and\n23.505 degrees east longitude, based on identification of landmarks from\nthe onboard sequence camera. During the first 2 hours on the surface,\nthe two crewmen performed a postlanding checkout of all LM systems.\nAfterwards they ate their first meal on the moon and elected to perform.\nthe surface operations earlier than planned.",
+        "touched\ndown at 799 degrees north, or just about on the lunar equator. And 23.46 degrees longitude,\nwhich would have put it about 4 miles from the targeted landing point downrange. We're now\n54 minutes - rather 27 minutes from reacquisition of the command module, and of course,\nwe're in constant contact with the lunar module on the surface. At this point, all LM systems\nseem to look very good.\nCAPCOM\nTranquility, Houston. We see the star angle difference. Looks good.\nEAGLE",
+        "of signal. Neil\nArmstrong confirmed that the LM power switch occurred at 95 hours 54 minutes, which\nwould have put that activity about 30 minutes ahead of the flight plan's schedule, and that\nappears to be about the pace that the crew is holding, that Armstrong and Aldrin are holding\nand getting the LM activated and checked out. At this time Buzz Aldrin has returned to the\ncommand and service module where he will be donning his pressure garment and then rejoin\nArmstrong in Eagle.\nEAGLE",
+        "Commander egressed through\nthe forward hatch and deployed an equipment module in the descent stage. A camera in\nthis module provided live television coverage of the Commander descending the ladder to\nthe surface, with first contact made at 109:24:15 g.e.t. (9:56:15 p.m. e.s.t., July 20,\n1969). The Lunar Module Pilot egressed soon thereafter, and both crewmen used the ini-\ntial period on the surface to become acclimated to the reduced gravity and unfamiliar\nsurface conditions."
+      ],
+      "scores": {
+        "answer_relevancy": 0.5085450439002094,
+        "faithfulness": 1.0,
+        "llm_context_precision_without_reference": 0.99999999998,
+        "semantic_similarity": 0.8138712108778776
+      }
+    }
+  ],
+  "aggregate_metrics": {
+    "answer_relevancy": {
+      "count": 6,
+      "mean": 0.8416176672114571,
+      "minimum": 0.5085450439002094,
+      "maximum": 1.0
+    },
+    "faithfulness": {
+      "count": 6,
+      "mean": 0.8472222222222222,
+      "minimum": 0.3333333333333333,
+      "maximum": 1.0
+    },
+    "llm_context_precision_without_reference": {
+      "count": 6,
+      "mean": 0.8333333333002777,
+      "minimum": 0.0,
+      "maximum": 0.99999999998
+    },
+    "semantic_similarity": {
+      "count": 6,
+      "mean": 0.7899557797857297,
+      "minimum": 0.7168760587574001,
+      "maximum": 0.8810953938285515
+    }
+  }
+}
