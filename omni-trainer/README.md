@@ -161,3 +161,26 @@ Go to `http://0.0.0.0:8000/docs` to see a nice documentation of your moderation 
 }
 ```
 Just change `string` to a message and click Execute, your message will be moderated. Scroll down a bit to see the results.
+
+# Extensions
+
+Added beyond the required steps:
+
+- **Extra moderation flags** — `contains_hate_speech`, `is_spam`, `contains_misinformation` on all four result
+  models, detected by every agent and enforced in the Gradio app. Covered by `tests/test_extended_moderation.py`
+  and by two eval cases: `spam_text`, plus `legitimate_offer_text` as a false-positive guard.
+- **Moderation analytics** — the backend aggregates outcomes in memory (`analytics.py`,
+  `GET /api/v1/analytics/summary`); the Gradio app renders them in a "Moderation Analytics" panel. Only flags
+  and timestamps are kept, never content. Covered by `tests/test_analytics.py`.
+- **Customer personas** — four personas with distinct tones, scenarios, and goals (`types/customer_persona.py`),
+  injected via a dynamic system prompt with `deps_type=CustomerPersona` and selectable in the sidebar. Covered by
+  `tests/test_customer_personas.py`.
+
+Notes:
+
+- Core moderation flags are required (no default) because `tests/test_moderation_result.py` expects a
+  `ValidationError` when they are omitted; the three extra flags default to `False` for compatibility.
+- Each chat turn emits a `feedback` span under `chat_turn`, alongside `moderate_*` and the session-scoped
+  `conversation` span.
+- "End Conversation" saves the chat to `transcripts/<session_id>.json` — the UI does not otherwise persist
+  conversations.

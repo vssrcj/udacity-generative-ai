@@ -130,6 +130,44 @@ cases: List[Case[List[TextInput], TextModerationResult, Any]] = [
             ),
         ),
     ),
+    Case(
+        name="spam_text",
+        # Extended flag coverage: unsolicited promotional content should trip is_spam
+        inputs=[TextInput(text_file=get_test_data_path("spam_text.txt"))],
+        metadata={"category": "text_moderation"},
+        evaluators=(
+            TextModerationCheck(
+                expected_pii=False,
+                expected_unfriendly=False,
+                # An unsolicited promotional blast in a support conversation is also unprofessional
+                expected_unprofessional=True,
+                expected_spam=True,
+            ),
+            LLMJudge(
+                model=judge_model,
+                rubric="The rationale should identify the unsolicited promotional content that makes this message spam",
+                include_input=True,
+            ),
+        ),
+    ),
+    Case(
+        name="legitimate_offer_text",
+        # False-positive guard: a relevant customer-service offer must NOT be flagged as spam
+        inputs=[TextInput(text_file=get_test_data_path("legitimate_offer_text.txt"))],
+        metadata={"category": "text_moderation"},
+        evaluators=(
+            TextModerationCheck(
+                expected_pii=False,
+                expected_unfriendly=False,
+                expected_unprofessional=False,
+            ),
+            LLMJudge(
+                model=judge_model,
+                rubric="The rationale should recognize this as a legitimate, relevant customer-service offer with no flags raised, not spam",
+                include_input=True,
+            ),
+        ),
+    ),
 ]
 
 

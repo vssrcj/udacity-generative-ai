@@ -17,6 +17,7 @@ KEY COMPONENTS:
 - create_chat_interface(): Builds the Gradio UI
 """
 
+import json
 import os
 import requests
 import gradio as gr
@@ -49,6 +50,8 @@ tracer = get_tracer(__name__)
 # Constants
 MAX_FILE_SIZE_MB = 5
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+MODERATION_TIMEOUT_SECONDS = 120  # Media moderation (video especially) can be slow, but never hang forever
+TRANSCRIPTS_DIR = Path("transcripts")
 
 
 def describe_customer_persona(persona_id: str) -> str:
@@ -230,7 +233,10 @@ def _call_text_moderation(text: str, span: trace.Span) -> Tuple[dict[str, Any], 
 
     # BACKEND CALL: HTTP POST to FastAPI moderation service
     response = requests.post(
-        config["endpoint"], headers={"Authorization": f"Bearer {USER_API_KEY}"}, json={"text": text}
+        config["endpoint"],
+        headers={"Authorization": f"Bearer {USER_API_KEY}"},
+        json={"text": text},
+        timeout=MODERATION_TIMEOUT_SECONDS,
     )
 
     if not response.ok:
@@ -276,7 +282,10 @@ def _call_media_moderation(media: str, span: trace.Span) -> Tuple[dict[str, Any]
     # BACKEND CALL: HTTP POST with file upload to FastAPI moderation service
     with open(media, "rb") as f:
         response = requests.post(
-            config["endpoint"], headers={"Authorization": f"Bearer {USER_API_KEY}"}, files={"file": f}
+            config["endpoint"],
+            headers={"Authorization": f"Bearer {USER_API_KEY}"},
+            files={"file": f},
+            timeout=MODERATION_TIMEOUT_SECONDS,
         )
 
     # Add media metadata to tracing span for Phoenix visualization
@@ -356,6 +365,17 @@ class ChatSessionWithTracing:
             attributes={"session.id": self.session_id},
         )
 
+    def _record_feedback(self, feedback: str, flagged: bool) -> None:
+        """Emit a `feedback` span so moderation feedback is visible in Phoenix."""
+        with tracer.start_as_current_span("feedback") as feedback_span:
+            feedback_span.set_attributes(
+                {
+                    "session.id": self.session_id,
+                    "feedback.content": feedback,
+                    "feedback.flagged": flagged,
+                }
+            )
+
     async def chat_with_gemini(
         self,
         message: dict,
@@ -400,8 +420,8 @@ class ChatSessionWithTracing:
                 "This is the next message from the support agent:",
             ]
 
-            # Initialize safety message to empty string, will be set if content is flagged
-            safety_message = ""
+            # Collect per-item moderation feedback so text feedback is not lost when files are attached
+            feedback_messages: List[str] = []
 
             # Process each part of the message
             for key, value in message.items():
@@ -417,11 +437,12 @@ class ChatSessionWithTracing:
                         feedback = f"⚠️ Content flagged: {safety_message}"
                         response = "[This content was flagged by moderation and not sent to the AI. Please try again.]"
 
-                        span.set_attribute("feedback", feedback)
+                        self._record_feedback(feedback, flagged=True)
 
                         return response, past_messages, feedback
 
-                    # Content safe - add to prompt
+                    # Content safe - record feedback and add to prompt
+                    feedback_messages.append(safety_message)
                     prompt_parts.append(value)
 
                 # MODERATION STEP 2: Check media files
@@ -441,9 +462,12 @@ class ChatSessionWithTracing:
                                     "[This content was flagged by moderation and not sent to the AI. Please try again.]"
                                 )
 
+                                self._record_feedback(feedback, flagged=True)
+
                                 return response, past_messages, feedback
 
-                            # Content safe - read file and add to prompt
+                            # Content safe - record feedback, read file and add to prompt
+                            feedback_messages.append(f"{Path(file_path).name}: {safety_message}")
                             with open(file_path, "rb") as f:
                                 file_bytes = f.read()
 
@@ -452,8 +476,13 @@ class ChatSessionWithTracing:
                         except ValueError as e:
                             raise gr.Error(str(e))
 
-            if not prompt_parts:
+            # Only the preamble string means the user provided neither text nor files
+            if len(prompt_parts) == 1:
                 raise gr.Error("Please provide a message or at least one file.")
+
+            # Combine the per-item feedback for the sidebar and record it as a feedback span
+            safety_message = "\n\n".join(feedback_messages)
+            self._record_feedback(safety_message, flagged=False)
 
             # All content passed moderation - send to AI customer
             try:
@@ -483,17 +512,30 @@ class ChatSessionWithTracing:
                     f"Please try again or contact ACME support if the issue persists."
                 )
 
-    def end_conversation(self):
+    def end_conversation(self, history: List | None = None):
         """
-        End the conversation and close the tracing span.
+        End the conversation, save the transcript, and close the tracing span.
 
         This should be called when the user ends the chat session to properly
-        close the conversation span in Phoenix.
+        close the conversation span in Phoenix. If the chat history is provided,
+        it is saved to transcripts/<session_id>.json so the conversation can be
+        reviewed (or submitted as evidence) after the app is closed.
         """
+        status = "Conversation ended."
+
+        if history:
+            TRANSCRIPTS_DIR.mkdir(exist_ok=True)
+            transcript_path = TRANSCRIPTS_DIR / f"{self.session_id}.json"
+            transcript_path.write_text(json.dumps(history, indent=2, default=str))
+            status += f" Transcript saved to {transcript_path}."
+            logger.info(f"Transcript saved to {transcript_path}")
+
         if self.conversation_span:
             self.conversation_span.end()
+            self.conversation_span = None
             logger.info(f"Conversation {self.session_id} ended")
-        return "Conversation ended. Refresh the page to start a new session."
+
+        return status + " Refresh the page to start a new session."
 
 
 def create_chat_interface() -> gr.Blocks:
@@ -533,6 +575,13 @@ def create_chat_interface() -> gr.Blocks:
         with gr.Row():
             # Left column: Chat interface (75% width)
             with gr.Column(scale=3):
+                # Keep a reference to the chatbot so its history can be saved on End Conversation
+                chatbot = gr.Chatbot(
+                    show_copy_button=True,
+                    type="messages",  # Use messages format for multimodal support
+                    placeholder="👋 Start by greeting the customer or introducing yourself. The AI customer will respond with their complaint.",
+                    height="75vh",
+                )
                 gr.ChatInterface(
                     fn=chat_session.chat_with_gemini,
                     type="messages",  # Use newer messages format (supports multimodal)
@@ -544,12 +593,7 @@ def create_chat_interface() -> gr.Blocks:
                         sources=["upload", "microphone"],  # Allow file upload and recording
                         placeholder="Type a message, upload files, or record audio...",
                     ),
-                    chatbot=gr.Chatbot(
-                        show_copy_button=True,
-                        type="messages",  # Use messages format for multimodal support
-                        placeholder="👋 Start by greeting the customer or introducing yourself. The AI customer will respond with their complaint.",
-                        height="75vh",
-                    ),
+                    chatbot=chatbot,
                     additional_inputs=[past_messages_state, persona_state],
                     additional_outputs=[past_messages_state, feedback_display],
                 )
@@ -634,8 +678,8 @@ def create_chat_interface() -> gr.Blocks:
         refresh_analytics.click(fn=load_analytics_dashboard, outputs=analytics_outputs)
         demo.load(fn=load_analytics_dashboard, outputs=analytics_outputs)
 
-        # Wire up the end conversation button
-        end_button.click(fn=chat_session.end_conversation, outputs=end_status).then(
+        # Wire up the end conversation button (passes the chat history so the transcript is saved)
+        end_button.click(fn=chat_session.end_conversation, inputs=chatbot, outputs=end_status).then(
             lambda: gr.Textbox(visible=True), outputs=end_status
         )
 
