@@ -1,0 +1,296 @@
+Evaluating run_audio_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                    Evaluation Summary: run_audio_moderation                    
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID             ┃ Inputs              ┃ Outputs             ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_audio… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ transcription is    │            │
+│                     │ s/Bluebird/udacity/ │ accurate and does   │            │
+│                     │ udacity-generative- │ not violate any of  │            │
+│                     │ ai/omni-trainer/sta │ the specified       │            │
+│                     │ rter/evals/test_dat │ policies. The tone  │            │
+│                     │ a/professional_audi │ is professional and │            │
+│                     │ o.mp3')]            │ friendly.'          │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to our customer │            │
+│                     │                     │ support center.'    │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_audio… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio is a standard │            │
+│                     │ s/Bluebird/udacity/ │ and professional    │            │
+│                     │ udacity-generative- │ greeting for a      │            │
+│                     │ ai/omni-trainer/sta │ customer service    │            │
+│                     │ rter/evals/test_dat │ line, and it        │            │
+│                     │ a/professional_audi │ contains no harmful │            │
+│                     │ o.mp3')]            │ or prohibited       │            │
+│                     │                     │ content.'           │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to our customer │            │
+│                     │                     │ support center.'    │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_audio… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio is a standard │            │
+│                     │ s/Bluebird/udacity/ │ and professional    │            │
+│                     │ udacity-generative- │ greeting from a     │            │
+│                     │ ai/omni-trainer/sta │ customer service    │            │
+│                     │ rter/evals/test_dat │ representative.'    │            │
+│                     │ a/professional_audi │ transcription='Welc │            │
+│                     │ o.mp3')]            │ ome to our customer │            │
+│                     │                     │ support center.'    │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_audio… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio is a standard │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ greeting for a      │            │
+│                     │ ai/omni-trainer/sta │ customer service    │            │
+│                     │ rter/evals/test_dat │ center. It is       │            │
+│                     │ a/professional_audi │ polite, accurate,   │            │
+│                     │ o.mp3')]            │ and contains no     │            │
+│                     │                     │ harmful or          │            │
+│                     │                     │ unprofessional      │            │
+│                     │                     │ content.'           │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to our customer │            │
+│                     │                     │ support center.'    │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_audio… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio is a standard │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ greeting for a      │            │
+│                     │ ai/omni-trainer/sta │ customer service    │            │
+│                     │ rter/evals/test_dat │ center. It is       │            │
+│                     │ a/professional_audi │ polite, accurate,   │            │
+│                     │ o.mp3')]            │ and contains no     │            │
+│                     │                     │ harmful or          │            │
+│                     │                     │ unprofessional      │            │
+│                     │                     │ content.'           │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to our customer │            │
+│                     │                     │ support center.'    │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ audio_with_pii_run… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio contains a    │            │
+│                     │ s/Bluebird/udacity/ │ full name (John), a │            │
+│                     │ udacity-generative- │ full date of birth, │            │
+│                     │ ai/omni-trainer/sta │ and a social        │            │
+│                     │ rter/evals/test_dat │ security number.    │            │
+│                     │ a/audio_with_pii.mp │ While this is       │            │
+│                     │ 3')]                │ necessary for the   │            │
+│                     │                     │ customer support    │            │
+│                     │                     │ context, it is      │            │
+│                     │                     │ nonetheless         │            │
+│                     │                     │ sensitive,          │            │
+│                     │                     │ personally-identifi │            │
+│                     │                     │ able information.   │            │
+│                     │                     │ The interaction is  │            │
+│                     │                     │ otherwise friendly  │            │
+│                     │                     │ and professional.'  │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to the customer │            │
+│                     │                     │ support center. My  │            │
+│                     │                     │ name is John, can   │            │
+│                     │                     │ you please verify   │            │
+│                     │                     │ that your date of   │            │
+│                     │                     │ birth is November   │            │
+│                     │                     │ 2nd, 1978 and your  │            │
+│                     │                     │ social security     │            │
+│                     │                     │ number is           │            │
+│                     │                     │ 123456789.'         │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ audio_with_pii_run… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio contains      │            │
+│                     │ s/Bluebird/udacity/ │ personally-identifi │            │
+│                     │ udacity-generative- │ able information    │            │
+│                     │ ai/omni-trainer/sta │ (PII) including a   │            │
+│                     │ rter/evals/test_dat │ birth date and      │            │
+│                     │ a/audio_with_pii.mp │ social security     │            │
+│                     │ 3')]                │ number. The tone is │            │
+│                     │                     │ professional and    │            │
+│                     │                     │ friendly.'          │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to the customer │            │
+│                     │                     │ support center. My  │            │
+│                     │                     │ name is John. Can   │            │
+│                     │                     │ you please verify   │            │
+│                     │                     │ that your date of   │            │
+│                     │                     │ birth is November   │            │
+│                     │                     │ 2nd, 1978 and your  │            │
+│                     │                     │ social security     │            │
+│                     │                     │ number is 1 2 3 4 5 │            │
+│                     │                     │ 6 7 8 9.'           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ audio_with_pii_run… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio contains      │            │
+│                     │ s/Bluebird/udacity/ │ personally          │            │
+│                     │ udacity-generative- │ identifiable        │            │
+│                     │ ai/omni-trainer/sta │ information,        │            │
+│                     │ rter/evals/test_dat │ specifically a name │            │
+│                     │ a/audio_with_pii.mp │ (John) and a social │            │
+│                     │ 3')]                │ security number     │            │
+│                     │                     │ (123456789). While  │            │
+│                     │                     │ this appears to be  │            │
+│                     │                     │ for a standard      │            │
+│                     │                     │ verification        │            │
+│                     │                     │ process, it is      │            │
+│                     │                     │ still technically   │            │
+│                     │                     │ PII.'               │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to the customer │            │
+│                     │                     │ support center. My  │            │
+│                     │                     │ name is John. Can   │            │
+│                     │                     │ you please verify   │            │
+│                     │                     │ that your date of   │            │
+│                     │                     │ birth is November   │            │
+│                     │                     │ 2nd, 1978 and your  │            │
+│                     │                     │ social security     │            │
+│                     │                     │ number is           │            │
+│                     │                     │ 123456789.'         │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ audio_with_pii_run… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ speaker in the      │            │
+│                     │ s/Bluebird/udacity/ │ audio asks a        │            │
+│                     │ udacity-generative- │ customer to verify  │            │
+│                     │ ai/omni-trainer/sta │ their PII           │            │
+│                     │ rter/evals/test_dat │ (specifically their │            │
+│                     │ a/audio_with_pii.mp │ date of birth and   │            │
+│                     │ 3')]                │ social security     │            │
+│                     │                     │ number). While this │            │
+│                     │                     │ is common for       │            │
+│                     │                     │ identification, it  │            │
+│                     │                     │ does constitute     │            │
+│                     │                     │ PII, and therefore  │            │
+│                     │                     │ must be flagged.    │            │
+│                     │                     │ The tone is         │            │
+│                     │                     │ professional and    │            │
+│                     │                     │ friendly.'          │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to the customer │            │
+│                     │                     │ support center. My  │            │
+│                     │                     │ name is John. Can   │            │
+│                     │                     │ you please verify   │            │
+│                     │                     │ that your date of   │            │
+│                     │                     │ birth is November   │            │
+│                     │                     │ 2nd, 1978 and your  │            │
+│                     │                     │ social security     │            │
+│                     │                     │ number is           │            │
+│                     │                     │ 123456789?'         │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ audio_with_pii_run… │ [AudioInput(audio_f │ rationale='The      │ ✔✔✔✔✔      │
+│                     │ ile='/Users/cj/Repo │ audio contains PII  │            │
+│                     │ s/Bluebird/udacity/ │ (a full date of     │            │
+│                     │ udacity-generative- │ birth and a social  │            │
+│                     │ ai/omni-trainer/sta │ security number).   │            │
+│                     │ rter/evals/test_dat │ The caller is       │            │
+│                     │ a/audio_with_pii.mp │ asking the customer │            │
+│                     │ 3')]                │ to confirm this     │            │
+│                     │                     │ PII, which is a     │            │
+│                     │                     │ standard procedure  │            │
+│                     │                     │ in many customer    │            │
+│                     │                     │ service contexts,   │            │
+│                     │                     │ so it is not        │            │
+│                     │                     │ inherently          │            │
+│                     │                     │ unprofessional.'    │            │
+│                     │                     │ transcription='Welc │            │
+│                     │                     │ ome to the customer │            │
+│                     │                     │ support center. My  │            │
+│                     │                     │ name is John. Can   │            │
+│                     │                     │ you please verify   │            │
+│                     │                     │ that your date of   │            │
+│                     │                     │ birth is November   │            │
+│                     │                     │ 2nd, 1978, and your │            │
+│                     │                     │ social security     │            │
+│                     │                     │ number is           │            │
+│                     │                     │ 123456789?'         │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_unfriendly=False │            │
+│                     │                     │ is_unprofessional=F │            │
+│                     │                     │ alse                │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ Averages            │                     │                     │ 100.0% ✔   │
+└─────────────────────┴─────────────────────┴─────────────────────┴────────────┘

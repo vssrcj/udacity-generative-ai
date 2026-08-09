@@ -21,7 +21,11 @@ Detect if:
 - the image is disturbing in any way
 - the image contains a person, a part of a person, or any other personally-identifiable information (PII). If yes, set
     contains_pii to True.
-- the image is of low quality (blurry, pixelated, underexposed, overexposed, etc.)
+- the image is of low quality. Judge this on the main subject: set is_low_quality to True if the subject
+    is not in sharp focus (out of focus, soft, motion-blurred, camera shake), or if the image is pixelated,
+    heavily compressed, noisy, underexposed, or overexposed. If the subject's edges and any text or labels
+    on it are not crisp and legible, set is_low_quality to True. A softly blurred background behind a sharp
+    subject is deliberate depth of field, not low quality - do not flag that.
 - the image communicates hate speech through visible text, symbols, or depictions that attack, threaten, or demean
   people based on protected characteristics; set contains_hate_speech accordingly
 - the image contains spam, including unsolicited promotional, scam, or deceptive messaging; set is_spam accordingly

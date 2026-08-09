@@ -184,3 +184,60 @@ Notes:
   `conversation` span.
 - "End Conversation" saves the chat to `transcripts/<session_id>.json` — the UI does not otherwise persist
   conversations.
+
+# Results
+
+All 74 unit tests pass (`uv run pytest tests/`). Evals were run with `EVAL_NUM_REPEATS=5`; full reports are in
+`screenshots/evals_*.txt`.
+
+Everything here was built and measured against **`gemini-3.1-flash-lite`** (set as `DEFAULT_GOOGLE_MODEL` in
+`.env`) for both the agents and the eval judge. `env.example` ships `gemini-2.5-flash-lite`, so scores and flag
+behaviour may differ on another model — the image prompt below in particular was tuned to what 3.1-flash-lite
+actually does.
+
+| Suite | Cases x repeats | Score | Notes |
+| :---- | :---- | :---- | :---- |
+| text | 5 x 5 | 95.0% | `text_with_pii` fails one assertion on every run (see below) |
+| image | 3 x 5 | 100.0% | |
+| audio | 2 x 5 | 100.0% | |
+| video | 2 x 5 | 100.0% | |
+
+Every case produced an identical assertion pattern across all five repeats, so the agents are consistent at
+`thinking_budget=0` rather than intermittently correct.
+
+Findings:
+
+- **`text_with_pii` (the one failure)** — the agent additionally sets `is_unprofessional=True` on a message
+  that leaks a customer's address, email, phone, and account number. The starter's expected labels say
+  `False`. The agent's reading is arguably the better one, so the case is left failing rather than relabelled.
+- **`is_low_quality` needed a sharper prompt.** The original wording ("blurry, pixelated, underexposed...")
+  never fired on `low_quality_image.jpg` (0/5) because the model read the softness as a deliberate aesthetic.
+  Making the *main subject* the test, and explicitly exempting background bokeh, moved it to 6/6 while
+  `professional_image.jpg` stayed at 0/6 — that image has a sharp subject and a blurred background by design.
+  This took the image suite from 83.3% to 100%.
+- **`is_disturbing` has no positive evidence.** No fixture in `evals/test_data/` should trip it, and none was
+  created. Both the image and video agents are instructed to detect it and the existing cases assert it is
+  `False`, so only the negative case is covered.
+
+# Submission evidence
+
+Captured from live runs of `uv run multimodal-moderation`:
+
+- `screenshots/run_a_screenshot.png` — full conversation (Frustrated refund-seeker) with flagged events and the
+  moderation feedback panel. Transcript: `transcripts/2b896454-....json`.
+- `screenshots/run_b_screenshot.png` — flag sweep (Anxious first-time user) covering all four modalities;
+  analytics show 11 moderated / 6 flagged, with PII, unprofessional, hate speech, misinformation, spam, and
+  unfriendly all triggered. Transcript: `transcripts/e353d3a9-....json`.
+- `screenshots/run_a_phoenix_1.png`, `_2.png` — Phoenix trace tree: `conversation` -> `chat_turn` ->
+  `moderate_text` / `moderate_image` / `feedback` / `llm_customer`. The third `chat_turn` has no
+  `llm_customer` child, showing that flagged content never reached the model.
+- `screenshots/run_a_phoenix_3.png` — the `conversation` span's attributes, including `session.id`, which
+  matches the run A transcript filename.
+- `transcripts/65535a86-....json` — a persona comparison turn (Skeptical power user) showing the same agent
+  message drawing a different, in-character customer response.
+
+One inconsistency worth stating rather than hiding: the `is_low_quality` prompt fix landed **after** these
+screenshots were captured. In `run_a_screenshot.png` the analytics show `low_quality_image.jpg` flagged for PII
+only, because that was the behaviour at the time; with the current prompt the same image is flagged for both PII
+and low quality. The message was blocked either way, and the screenshots are accurate in every other respect —
+they just predate that one improvement.

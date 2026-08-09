@@ -1,0 +1,368 @@
+Evaluating run_image_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                    Evaluation Summary: run_image_moderation                    
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID             ┃ Inputs              ┃ Outputs             ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_image… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image is a          │            │
+│                     │ s/Bluebird/udacity/ │ high-quality,       │            │
+│                     │ udacity-generative- │ professional        │            │
+│                     │ ai/omni-trainer/sta │ product shot of an  │            │
+│                     │ rter/evals/test_dat │ ACME brand power    │            │
+│                     │ a/professional_imag │ bank. It contains   │            │
+│                     │ e.jpg')]            │ no                  │            │
+│                     │                     │ personally-identifi │            │
+│                     │                     │ able information,   │            │
+│                     │                     │ hate speech, spam,  │            │
+│                     │                     │ or misleading       │            │
+│                     │                     │ claims. It is not   │            │
+│                     │                     │ disturbing.'        │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_image… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image depicts a     │            │
+│                     │ s/Bluebird/udacity/ │ high-quality        │            │
+│                     │ udacity-generative- │ product photo of an │            │
+│                     │ ai/omni-trainer/sta │ ACME power bank on  │            │
+│                     │ rter/evals/test_dat │ a desk. There is no │            │
+│                     │ a/professional_imag │ disturbing content, │            │
+│                     │ e.jpg')]            │ personally          │            │
+│                     │                     │ identifiable        │            │
+│                     │                     │ information, hate   │            │
+│                     │                     │ speech, spam, or    │            │
+│                     │                     │ misleading claims.  │            │
+│                     │                     │ The image is clear  │            │
+│                     │                     │ and professional.'  │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_image… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image is a          │            │
+│                     │ s/Bluebird/udacity/ │ high-quality,       │            │
+│                     │ udacity-generative- │ professional        │            │
+│                     │ ai/omni-trainer/sta │ product photograph  │            │
+│                     │ rter/evals/test_dat │ of an ACME power    │            │
+│                     │ a/professional_imag │ bank. It does not   │            │
+│                     │ e.jpg')]            │ contain any PII,    │            │
+│                     │                     │ hate speech, spam,  │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ disturbing content. │            │
+│                     │                     │ It is perfectly     │            │
+│                     │                     │ appropriate for a   │            │
+│                     │                     │ professional        │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_image… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image is a          │            │
+│                     │ s/Bluebird/udacity/ │ high-quality,       │            │
+│                     │ udacity-generative- │ professional        │            │
+│                     │ ai/omni-trainer/sta │ product photograph  │            │
+│                     │ rter/evals/test_dat │ of an ACME power    │            │
+│                     │ a/professional_imag │ bank. It does not   │            │
+│                     │ e.jpg')]            │ contain any         │            │
+│                     │                     │ harmful,            │            │
+│                     │                     │ disturbing,         │            │
+│                     │                     │ personal, or        │            │
+│                     │                     │ misleading content. │            │
+│                     │                     │ It is perfectly     │            │
+│                     │                     │ appropriate for use │            │
+│                     │                     │ in a customer       │            │
+│                     │                     │ service setting.'   │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_image… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image is a          │            │
+│                     │ s/Bluebird/udacity/ │ high-quality,       │            │
+│                     │ udacity-generative- │ professional        │            │
+│                     │ ai/omni-trainer/sta │ product photograph  │            │
+│                     │ rter/evals/test_dat │ of an ACME power    │            │
+│                     │ a/professional_imag │ bank. It does not   │            │
+│                     │ e.jpg')]            │ contain any people, │            │
+│                     │                     │ PII, disturbing     │            │
+│                     │                     │ content, hate       │            │
+│                     │                     │ speech, spam, or    │            │
+│                     │                     │ misleading claims.  │            │
+│                     │                     │ The product is      │            │
+│                     │                     │ clearly in focus    │            │
+│                     │                     │ and appropriately   │            │
+│                     │                     │ branded.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ image_with_person_… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image depicts a     │            │
+│                     │ s/Bluebird/udacity/ │ man, which          │            │
+│                     │ udacity-generative- │ constitutes         │            │
+│                     │ ai/omni-trainer/sta │ personally-identifi │            │
+│                     │ rter/evals/test_dat │ able information    │            │
+│                     │ a/image_with_person │ (PII). Otherwise,   │            │
+│                     │ .jpg')]             │ the image is        │            │
+│                     │                     │ professional, of    │            │
+│                     │                     │ high quality, and   │            │
+│                     │                     │ does not contain    │            │
+│                     │                     │ hate speech, spam,  │            │
+│                     │                     │ or misinformation.' │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ image_with_person_… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person, which       │            │
+│                     │ udacity-generative- │ triggers the        │            │
+│                     │ ai/omni-trainer/sta │ contains_pii flag   │            │
+│                     │ rter/evals/test_dat │ according to the    │            │
+│                     │ a/image_with_person │ instructions. The   │            │
+│                     │ .jpg')]             │ image itself is of  │            │
+│                     │                     │ professional        │            │
+│                     │                     │ quality and does    │            │
+│                     │                     │ not contain hate    │            │
+│                     │                     │ speech, spam,       │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ disturbing          │            │
+│                     │                     │ content.'           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ image_with_person_… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person, therefore   │            │
+│                     │ udacity-generative- │ it is flagged for   │            │
+│                     │ ai/omni-trainer/sta │ PII. It is          │            │
+│                     │ rter/evals/test_dat │ professional,       │            │
+│                     │ a/image_with_person │ high-quality, and   │            │
+│                     │ .jpg')]             │ does not contain    │            │
+│                     │                     │ any hate speech,    │            │
+│                     │                     │ spam, or            │            │
+│                     │                     │ misinformation.'    │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ image_with_person_… │ [ImageInput(image_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person, therefore   │            │
+│                     │ udacity-generative- │ 'contains_pii' is   │            │
+│                     │ ai/omni-trainer/sta │ set to True. The    │            │
+│                     │ rter/evals/test_dat │ image is of high    │            │
+│                     │ a/image_with_person │ quality and is      │            │
+│                     │ .jpg')]             │ professional in     │            │
+│                     │                     │ nature, showing no  │            │
+│                     │                     │ signs of hate       │            │
+│                     │                     │ speech, spam,       │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ disturbing          │            │
+│                     │                     │ content."           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ image_with_person_… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person, which       │            │
+│                     │ udacity-generative- │ triggers the        │            │
+│                     │ ai/omni-trainer/sta │ contains_pii flag.  │            │
+│                     │ rter/evals/test_dat │ The image is        │            │
+│                     │ a/image_with_person │ otherwise           │            │
+│                     │ .jpg')]             │ professional,       │            │
+│                     │                     │ clean, and          │            │
+│                     │                     │ well-focused,       │            │
+│                     │                     │ suitable for a      │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ context. It does    │            │
+│                     │                     │ not contain hate    │            │
+│                     │                     │ speech, spam,       │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ disturbing          │            │
+│                     │                     │ content.'           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ low_quality_image_… │ [ImageInput(image_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image is flagged    │            │
+│                     │ s/Bluebird/udacity/ │ for containing PII  │            │
+│                     │ udacity-generative- │ because a human     │            │
+│                     │ ai/omni-trainer/sta │ hand holding a      │            │
+│                     │ rter/evals/test_dat │ device is clearly   │            │
+│                     │ a/low_quality_image │ visible. It is also │            │
+│                     │ .jpg')]             │ flagged as low      │            │
+│                     │                     │ quality because the │            │
+│                     │                     │ main subject (the   │            │
+│                     │                     │ device being held)  │            │
+│                     │                     │ is out of           │            │
+│                     │                     │ focus/blurry,       │            │
+│                     │                     │ making its details  │            │
+│                     │                     │ and any potential   │            │
+│                     │                     │ labeling on it      │            │
+│                     │                     │ illegible.'         │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=True │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ low_quality_image_… │ [ImageInput(image_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person's hand,      │            │
+│                     │ udacity-generative- │ which constitutes   │            │
+│                     │ ai/omni-trainer/sta │ PII. The main       │            │
+│                     │ rter/evals/test_dat │ subject (the device │            │
+│                     │ a/low_quality_image │ being held) is      │            │
+│                     │ .jpg')]             │ significantly out   │            │
+│                     │                     │ of focus and        │            │
+│                     │                     │ blurred, making it  │            │
+│                     │                     │ low quality."       │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=True │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ low_quality_image_… │ [ImageInput(image_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person's hand       │            │
+│                     │ udacity-generative- │ (PII).              │            │
+│                     │ ai/omni-trainer/sta │ Additionally, the   │            │
+│                     │ rter/evals/test_dat │ image is of low     │            │
+│                     │ a/low_quality_image │ quality because the │            │
+│                     │ .jpg')]             │ main subject (the   │            │
+│                     │                     │ device being held)  │            │
+│                     │                     │ is significantly    │            │
+│                     │                     │ out of focus and    │            │
+│                     │                     │ blurry."            │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=True │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ low_quality_image_… │ [ImageInput(image_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person's hand,      │            │
+│                     │ udacity-generative- │ which is            │            │
+│                     │ ai/omni-trainer/sta │ personally-identifi │            │
+│                     │ rter/evals/test_dat │ able information    │            │
+│                     │ a/low_quality_image │ (PII).              │            │
+│                     │ .jpg')]             │ Additionally, the   │            │
+│                     │                     │ image is of low     │            │
+│                     │                     │ quality because the │            │
+│                     │                     │ main subject (the   │            │
+│                     │                     │ device held in the  │            │
+│                     │                     │ hand) is not in     │            │
+│                     │                     │ sharp focus; the    │            │
+│                     │                     │ focus is soft,      │            │
+│                     │                     │ making the details  │            │
+│                     │                     │ of the device       │            │
+│                     │                     │ indistinct."        │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=True │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ low_quality_image_… │ [ImageInput(image_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ image contains a    │            │
+│                     │ s/Bluebird/udacity/ │ person's hand,      │            │
+│                     │ udacity-generative- │ which constitutes   │            │
+│                     │ ai/omni-trainer/sta │ PII. The main       │            │
+│                     │ rter/evals/test_dat │ subject (the device │            │
+│                     │ a/low_quality_image │ being held) is out  │            │
+│                     │ .jpg')]             │ of focus, rendering │            │
+│                     │                     │ it low quality      │            │
+│                     │                     │ according to the    │            │
+│                     │                     │ instructions."      │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=True │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ Averages            │                     │                     │ 100.0% ✔   │
+└─────────────────────┴─────────────────────┴─────────────────────┴────────────┘

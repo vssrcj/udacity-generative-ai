@@ -1,0 +1,262 @@
+Evaluating run_video_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                    Evaluation Summary: run_video_moderation                    
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID             ┃ Inputs              ┃ Outputs             ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_video… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video is a          │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ product showcase    │            │
+│                     │ ai/omni-trainer/sta │ for an ACME brand   │            │
+│                     │ rter/evals/test_dat │ power bank. It      │            │
+│                     │ a/professional_vide │ contains no PII,    │            │
+│                     │ o.mp4')]            │ disturbing content, │            │
+│                     │                     │ hate speech, spam,  │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ quality issues. It  │            │
+│                     │                     │ is appropriate for  │            │
+│                     │                     │ a professional      │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_video… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video is a          │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ product showcase    │            │
+│                     │ ai/omni-trainer/sta │ for an ACME brand   │            │
+│                     │ rter/evals/test_dat │ power bank. It does │            │
+│                     │ a/professional_vide │ not contain any     │            │
+│                     │ o.mp4')]            │ PII, disturbing     │            │
+│                     │                     │ content,            │            │
+│                     │                     │ low-quality         │            │
+│                     │                     │ footage, hate       │            │
+│                     │                     │ speech, spam, or    │            │
+│                     │                     │ misinformation. It  │            │
+│                     │                     │ is appropriate for  │            │
+│                     │                     │ a professional      │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_video… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video is a          │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ product showcase    │            │
+│                     │ ai/omni-trainer/sta │ for an ACME brand   │            │
+│                     │ rter/evals/test_dat │ power bank. It does │            │
+│                     │ a/professional_vide │ not contain any     │            │
+│                     │ o.mp4')]            │ disturbing content, │            │
+│                     │                     │ personally          │            │
+│                     │                     │ identifiable        │            │
+│                     │                     │ information, hate   │            │
+│                     │                     │ speech, spam,       │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ quality issues. It  │            │
+│                     │                     │ is appropriate for  │            │
+│                     │                     │ a professional      │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_video… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video is a          │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ product showcase    │            │
+│                     │ ai/omni-trainer/sta │ for an ACME brand   │            │
+│                     │ rter/evals/test_dat │ power bank. It      │            │
+│                     │ a/professional_vide │ contains no         │            │
+│                     │ o.mp4')]            │ disturbing imagery, │            │
+│                     │                     │ personally          │            │
+│                     │                     │ identifiable        │            │
+│                     │                     │ information, hate   │            │
+│                     │                     │ speech, spam, or    │            │
+│                     │                     │ misinformation. The │            │
+│                     │                     │ video quality is    │            │
+│                     │                     │ high and clear. It  │            │
+│                     │                     │ is appropriate for  │            │
+│                     │                     │ a professional      │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ professional_video… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video is a          │            │
+│                     │ s/Bluebird/udacity/ │ professional        │            │
+│                     │ udacity-generative- │ product showcase    │            │
+│                     │ ai/omni-trainer/sta │ for an ACME brand   │            │
+│                     │ rter/evals/test_dat │ power bank. It does │            │
+│                     │ a/professional_vide │ not contain any     │            │
+│                     │ o.mp4')]            │ disturbing content, │            │
+│                     │                     │ personally          │            │
+│                     │                     │ identifiable        │            │
+│                     │                     │ information (PII),  │            │
+│                     │                     │ hate speech,        │            │
+│                     │                     │ misinformation, or  │            │
+│                     │                     │ spam. The quality   │            │
+│                     │                     │ is clear and        │            │
+│                     │                     │ professional.'      │            │
+│                     │                     │ contains_pii=False  │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ video_with_face_ru… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video contains the  │            │
+│                     │ s/Bluebird/udacity/ │ face of the person  │            │
+│                     │ udacity-generative- │ using the product,  │            │
+│                     │ ai/omni-trainer/sta │ which is PII. The   │            │
+│                     │ rter/evals/test_dat │ video is            │            │
+│                     │ a/video_with_face.m │ appropriate for a   │            │
+│                     │ p4')]               │ professional        │            │
+│                     │                     │ setting as it       │            │
+│                     │                     │ appears to be a     │            │
+│                     │                     │ promotional or      │            │
+│                     │                     │ instructional video │            │
+│                     │                     │ for a tech          │            │
+│                     │                     │ product.'           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ video_with_face_ru… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video contains PII  │            │
+│                     │ s/Bluebird/udacity/ │ because it clearly  │            │
+│                     │ udacity-generative- │ shows the face of   │            │
+│                     │ ai/omni-trainer/sta │ the individual at   │            │
+│                     │ rter/evals/test_dat │ the start of the    │            │
+│                     │ a/video_with_face.m │ video. It is        │            │
+│                     │ p4')]               │ otherwise           │            │
+│                     │                     │ professional and    │            │
+│                     │                     │ appropriate for a   │            │
+│                     │                     │ customer service    │            │
+│                     │                     │ setting.'           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ video_with_face_ru… │ [VideoInput(video_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video contains a    │            │
+│                     │ s/Bluebird/udacity/ │ clear shot of a     │            │
+│                     │ udacity-generative- │ person's face,      │            │
+│                     │ ai/omni-trainer/sta │ which constitutes   │            │
+│                     │ rter/evals/test_dat │ personally-identifi │            │
+│                     │ a/video_with_face.m │ able information    │            │
+│                     │ p4')]               │ (PII). Otherwise,   │            │
+│                     │                     │ the video appears   │            │
+│                     │                     │ to be a standard,   │            │
+│                     │                     │ professional        │            │
+│                     │                     │ product             │            │
+│                     │                     │ demonstration and   │            │
+│                     │                     │ is appropriate for  │            │
+│                     │                     │ a customer service  │            │
+│                     │                     │ setting."           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ video_with_face_ru… │ [VideoInput(video_f │ rationale='The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video shows a       │            │
+│                     │ s/Bluebird/udacity/ │ person using a      │            │
+│                     │ udacity-generative- │ product. The face   │            │
+│                     │ ai/omni-trainer/sta │ of the individual   │            │
+│                     │ rter/evals/test_dat │ is clearly visible, │            │
+│                     │ a/video_with_face.m │ which qualifies as  │            │
+│                     │ p4')]               │ personally-identifi │            │
+│                     │                     │ able information    │            │
+│                     │                     │ (PII). Otherwise,   │            │
+│                     │                     │ the video is        │            │
+│                     │                     │ appropriate and     │            │
+│                     │                     │ professional.'      │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ video_with_face_ru… │ [VideoInput(video_f │ rationale="The      │ ✔✔✔✔       │
+│                     │ ile='/Users/cj/Repo │ video shows a       │            │
+│                     │ s/Bluebird/udacity/ │ person's face,      │            │
+│                     │ udacity-generative- │ which constitutes   │            │
+│                     │ ai/omni-trainer/sta │ personally          │            │
+│                     │ rter/evals/test_dat │ identifiable        │            │
+│                     │ a/video_with_face.m │ information (PII).  │            │
+│                     │ p4')]               │ The video is        │            │
+│                     │                     │ professional,       │            │
+│                     │                     │ clear, and does not │            │
+│                     │                     │ contain any hate    │            │
+│                     │                     │ speech,             │            │
+│                     │                     │ misinformation,     │            │
+│                     │                     │ spam, or disturbing │            │
+│                     │                     │ content."           │            │
+│                     │                     │ contains_pii=True   │            │
+│                     │                     │ is_disturbing=False │            │
+│                     │                     │ is_low_quality=Fals │            │
+│                     │                     │ e                   │            │
+│                     │                     │ contains_hate_speec │            │
+│                     │                     │ h=False             │            │
+│                     │                     │ is_spam=False       │            │
+│                     │                     │ contains_misinforma │            │
+│                     │                     │ tion=False          │            │
+├─────────────────────┼─────────────────────┼─────────────────────┼────────────┤
+│ Averages            │                     │                     │ 100.0% ✔   │
+└─────────────────────┴─────────────────────┴─────────────────────┴────────────┘
