@@ -5,4 +5,4 @@ chroma_db*/
 __pycache__/
 .venv/
 omni-trainer/docs/*
-*/uploaded_media/*
+uploaded_media/

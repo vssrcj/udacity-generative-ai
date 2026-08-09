@@ -1,0 +1,201 @@
+Evaluating run_text_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                Evaluation Summary: run_text_moderation                
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID          ┃ Inputs           ┃ Outputs          ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_te… │ [TextInput(text_ │ rationale='The   │ ✔✔✔✔       │
+│                  │ file='/Users/cj/ │ message is       │            │
+│                  │ Repos/Bluebird/u │ polite, helpful, │            │
+│                  │ dacity/udacity-g │ and              │            │
+│                  │ enerative-ai/omn │ professional. It │            │
+│                  │ i-trainer/starte │ does not contain │            │
+│                  │ r/evals/test_dat │ any PII, hate    │            │
+│                  │ a/professional_t │ speech, spam, or │            │
+│                  │ ext.txt')]       │ misinformation.  │            │
+│                  │                  │ It adheres       │            │
+│                  │                  │ perfectly to the │            │
+│                  │                  │ ACME enterprise  │            │
+│                  │                  │ standards for    │            │
+│                  │                  │ customer         │            │
+│                  │                  │ interaction.'    │            │
+│                  │                  │ contains_pii=Fal │            │
+│                  │                  │ se               │            │
+│                  │                  │ is_unfriendly=Fa │            │
+│                  │                  │ lse              │            │
+│                  │                  │ is_unprofessiona │            │
+│                  │                  │ l=False          │            │
+│                  │                  │ contains_hate_sp │            │
+│                  │                  │ eech=False       │            │
+│                  │                  │ is_spam=False    │            │
+│                  │                  │ contains_misinfo │            │
+│                  │                  │ rmation=False    │            │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│ text_with_pii    │ [TextInput(text_ │ rationale="The   │ ✗✔✔✔       │
+│                  │ file='/Users/cj/ │ message contains │            │
+│                  │ Repos/Bluebird/u │ PII (customer's  │            │
+│                  │ dacity/udacity-g │ full name,       │            │
+│                  │ enerative-ai/omn │ specific home    │            │
+│                  │ i-trainer/starte │ address, email   │            │
+│                  │ r/evals/test_dat │ address, phone   │            │
+│                  │ a/text_with_pii. │ number, and      │            │
+│                  │ txt')]           │ account number). │            │
+│                  │                  │ It is also       │            │
+│                  │                  │ unprofessional   │            │
+│                  │                  │ for a customer   │            │
+│                  │                  │ representative   │            │
+│                  │                  │ to share a       │            │
+│                  │                  │ personal         │            │
+│                  │                  │ direct-dial      │            │
+│                  │                  │ phone number in  │            │
+│                  │                  │ this context,    │            │
+│                  │                  │ and it is a      │            │
+│                  │                  │ security risk to │            │
+│                  │                  │ include full PII │            │
+│                  │                  │ in a single      │            │
+│                  │                  │ message. While   │            │
+│                  │                  │ the tone is      │            │
+│                  │                  │ friendly, the    │            │
+│                  │                  │ handling of      │            │
+│                  │                  │ sensitive data   │            │
+│                  │                  │ violates         │            │
+│                  │                  │ professional     │            │
+│                  │                  │ privacy and      │            │
+│                  │                  │ security         │            │
+│                  │                  │ standards."      │            │
+│                  │                  │ contains_pii=Tru │            │
+│                  │                  │ e                │            │
+│                  │                  │ is_unfriendly=Fa │            │
+│                  │                  │ lse              │            │
+│                  │                  │ is_unprofessiona │            │
+│                  │                  │ l=True           │            │
+│                  │                  │ contains_hate_sp │            │
+│                  │                  │ eech=False       │            │
+│                  │                  │ is_spam=False    │            │
+│                  │                  │ contains_misinfo │            │
+│                  │                  │ rmation=False    │            │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│ unfriendly_text  │ [TextInput(text_ │ rationale="The   │ ✔✔✔✔       │
+│                  │ file='/Users/cj/ │ representative's │            │
+│                  │ Repos/Bluebird/u │ tone is overtly  │            │
+│                  │ dacity/udacity-g │ aggressive,      │            │
+│                  │ enerative-ai/omn │ impatient, and   │            │
+│                  │ i-trainer/starte │ insulting toward │            │
+│                  │ r/evals/test_dat │ the customer.    │            │
+│                  │ a/unfriendly_tex │ Phrases such as  │            │
+│                  │ t.txt')]         │ 'Seriously??',   │            │
+│                  │                  │ 'that's your     │            │
+│                  │                  │ problem', and    │            │
+│                  │                  │ 'wasting my      │            │
+│                  │                  │ time' are        │            │
+│                  │                  │ hostile and      │            │
+│                  │                  │ violate the      │            │
+│                  │                  │ professional     │            │
+│                  │                  │ standards of     │            │
+│                  │                  │ ACME enterprise. │            │
+│                  │                  │ This is highly   │            │
+│                  │                  │ unprofessional   │            │
+│                  │                  │ and unfriendly   │            │
+│                  │                  │ behavior for a   │            │
+│                  │                  │ customer service │            │
+│                  │                  │ interaction."    │            │
+│                  │                  │ contains_pii=Fal │            │
+│                  │                  │ se               │            │
+│                  │                  │ is_unfriendly=Tr │            │
+│                  │                  │ ue               │            │
+│                  │                  │ is_unprofessiona │            │
+│                  │                  │ l=True           │            │
+│                  │                  │ contains_hate_sp │            │
+│                  │                  │ eech=False       │            │
+│                  │                  │ is_spam=False    │            │
+│                  │                  │ contains_misinfo │            │
+│                  │                  │ rmation=False    │            │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│ spam_text        │ [TextInput(text_ │ rationale="The   │ ✔✔✔✔       │
+│                  │ file='/Users/cj/ │ message is       │            │
+│                  │ Repos/Bluebird/u │ flagged as spam  │            │
+│                  │ dacity/udacity-g │ because it       │            │
+│                  │ enerative-ai/omn │ utilizes         │            │
+│                  │ i-trainer/starte │ aggressive,      │            │
+│                  │ r/evals/test_dat │ high-pressure    │            │
+│                  │ a/spam_text.txt' │ promotional      │            │
+│                  │ )]               │ tactics ('GREAT  │            │
+│                  │                  │ NEWS!', 'Limited │            │
+│                  │                  │ stock, act       │            │
+│                  │                  │ now!'),          │            │
+│                  │                  │ unsolicited      │            │
+│                  │                  │ encouragement to │            │
+│                  │                  │ forward the      │            │
+│                  │                  │ message to       │            │
+│                  │                  │ friends and      │            │
+│                  │                  │ family           │            │
+│                  │                  │ (chain-letter    │            │
+│                  │                  │ style            │            │
+│                  │                  │ marketing), and  │            │
+│                  │                  │ directs the user │            │
+│                  │                  │ to an external   │            │
+│                  │                  │ link. It is      │            │
+│                  │                  │ flagged as       │            │
+│                  │                  │ unprofessional   │            │
+│                  │                  │ because this     │            │
+│                  │                  │ tone is          │            │
+│                  │                  │ inconsistent     │            │
+│                  │                  │ with the         │            │
+│                  │                  │ 'friendly but    │            │
+│                  │                  │ professional'    │            │
+│                  │                  │ communication    │            │
+│                  │                  │ standard         │            │
+│                  │                  │ required at ACME │            │
+│                  │                  │ enterprise; the  │            │
+│                  │                  │ hyper-enthusiast │            │
+│                  │                  │ ic, sales-driven │            │
+│                  │                  │ language is      │            │
+│                  │                  │ inappropriate    │            │
+│                  │                  │ for standard     │            │
+│                  │                  │ customer service │            │
+│                  │                  │ interaction."    │            │
+│                  │                  │ contains_pii=Fal │            │
+│                  │                  │ se               │            │
+│                  │                  │ is_unfriendly=Fa │            │
+│                  │                  │ lse              │            │
+│                  │                  │ is_unprofessiona │            │
+│                  │                  │ l=True           │            │
+│                  │                  │ contains_hate_sp │            │
+│                  │                  │ eech=False       │            │
+│                  │                  │ is_spam=True     │            │
+│                  │                  │ contains_misinfo │            │
+│                  │                  │ rmation=False    │            │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│ legitimate_offe… │ [TextInput(text_ │ rationale="The   │ ✔✔✔✔       │
+│                  │ file='/Users/cj/ │ customer service │            │
+│                  │ Repos/Bluebird/u │ message is       │            │
+│                  │ dacity/udacity-g │ professional,    │            │
+│                  │ enerative-ai/omn │ friendly, and    │            │
+│                  │ i-trainer/starte │ helpful. It      │            │
+│                  │ r/evals/test_dat │ provides clear   │            │
+│                  │ a/legitimate_off │ options for      │            │
+│                  │ er_text.txt')]   │ resolution and   │            │
+│                  │                  │ offers a         │            │
+│                  │                  │ goodwill         │            │
+│                  │                  │ discount, which  │            │
+│                  │                  │ aligns perfectly │            │
+│                  │                  │ with ACME        │            │
+│                  │                  │ enterprise's     │            │
+│                  │                  │ standards. There │            │
+│                  │                  │ is no evidence   │            │
+│                  │                  │ of PII, hate     │            │
+│                  │                  │ speech, spam, or │            │
+│                  │                  │ misinformation." │            │
+│                  │                  │ contains_pii=Fal │            │
+│                  │                  │ se               │            │
+│                  │                  │ is_unfriendly=Fa │            │
+│                  │                  │ lse              │            │
+│                  │                  │ is_unprofessiona │            │
+│                  │                  │ l=False          │            │
+│                  │                  │ contains_hate_sp │            │
+│                  │                  │ eech=False       │            │
+│                  │                  │ is_spam=False    │            │
+│                  │                  │ contains_misinfo │            │
+│                  │                  │ rmation=False    │            │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│ Averages         │                  │                  │ 95.0% ✔    │
+└──────────────────┴──────────────────┴──────────────────┴────────────┘
