@@ -532,7 +532,6 @@ class ChatSessionWithTracing:
 
         if self.conversation_span:
             self.conversation_span.end()
-            self.conversation_span = None
             logger.info(f"Conversation {self.session_id} ended")
 
         return status + " Refresh the page to start a new session."
