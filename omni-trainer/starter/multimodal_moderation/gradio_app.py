@@ -30,6 +30,11 @@ import logging
 from multimodal_moderation.env import USER_API_KEY, API_BASE_URL
 from multimodal_moderation.tracing import setup_tracing, get_tracer, add_media_to_span
 from multimodal_moderation.agents.customer_agent import customer_agent
+from multimodal_moderation.types.customer_persona import (
+    DEFAULT_CUSTOMER_PERSONA_ID,
+    customer_persona_choices,
+    get_customer_persona,
+)
 from multimodal_moderation.utils import detect_file_type
 from opentelemetry import trace
 
@@ -44,6 +49,11 @@ tracer = get_tracer(__name__)
 # Constants
 MAX_FILE_SIZE_MB = 5
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+
+
+def describe_customer_persona(persona_id: str) -> str:
+    """Return a short, UI-friendly description of the selected persona."""
+    return get_customer_persona(persona_id).summary
 
 
 # Moderation Configuration
@@ -346,7 +356,13 @@ class ChatSessionWithTracing:
             attributes={"session.id": self.session_id},
         )
 
-    async def chat_with_gemini(self, message: dict, history: List, past_messages: List) -> Tuple[str, List, str]:
+    async def chat_with_gemini(
+        self,
+        message: dict,
+        history: List,
+        past_messages: List,
+        persona_id: str = DEFAULT_CUSTOMER_PERSONA_ID,
+    ) -> Tuple[str, List, str]:
         """
         Process a chat turn: moderate content, then send to AI customer.
 
@@ -361,12 +377,21 @@ class ChatSessionWithTracing:
             message: dict with 'text' and optional 'files' keys from Gradio
             history: Gradio's chat history (for display only, not used)
             past_messages: Pydantic AI's message history (used for agent context)
+            persona_id: Selected customer persona and support scenario
 
         Returns:
             Tuple of (response_text, updated_messages, feedback_text)
         """
         conversation_context = trace.set_span_in_context(self.conversation_span)
         with tracer.start_as_current_span("chat_turn", context=conversation_context) as span:
+            persona = get_customer_persona(persona_id)
+            span.set_attributes(
+                {
+                    "customer.persona.id": persona.id,
+                    "customer.persona.tone": persona.emotional_tone,
+                }
+            )
+            self.conversation_span.set_attribute("customer.persona.id", persona.id)
 
             logger.info(f"New turn - Text: '{message.get('text', '')[:50]}...', Files: {len(message.get('files', []))}")
 
@@ -432,12 +457,20 @@ class ChatSessionWithTracing:
 
             # All content passed moderation - send to AI customer
             try:
-                with tracer.start_as_current_span("llm_customer"):
+                with tracer.start_as_current_span("llm_customer") as llm_span:
+                    llm_span.set_attributes(
+                        {
+                            "customer.persona.id": persona.id,
+                            "customer.persona.tone": persona.emotional_tone,
+                            "customer.persona.scenario": persona.scenario,
+                        }
+                    )
 
                     # GEMINI CALL: Send the prompt and conversation history to the AI customer.
                     result = await customer_agent.run(
                         prompt_parts,
                         message_history=past_messages,
+                        deps=persona,
                     )
 
                 logger.info(f"Response generated ({len(result.all_messages())} messages in history)")
@@ -481,6 +514,7 @@ def create_chat_interface() -> gr.Blocks:
     with gr.Blocks(title="ACME Customer Service Training Agent", fill_height=True) as demo:
         # State to hold Pydantic AI's message history (preserves context across turns)
         past_messages_state = gr.State([])
+        persona_state = gr.State(DEFAULT_CUSTOMER_PERSONA_ID)
 
         # Create feedback_display first (with render=False) so we can reference it
         # in ChatInterface's additional_outputs below, then render it in the sidebar later
@@ -492,7 +526,6 @@ def create_chat_interface() -> gr.Blocks:
             lines=10,
             render=False,  # Don't render yet - will render in sidebar
         )
-
         # UI Layout
         gr.Markdown("# 🤖 ACME Customer Service Training Agent")
         gr.Markdown("Welcome to ACME Corporation's customer service training!")
@@ -517,12 +550,20 @@ def create_chat_interface() -> gr.Blocks:
                         placeholder="👋 Start by greeting the customer or introducing yourself. The AI customer will respond with their complaint.",
                         height="75vh",
                     ),
-                    additional_inputs=[past_messages_state],
+                    additional_inputs=[past_messages_state, persona_state],
                     additional_outputs=[past_messages_state, feedback_display],
                 )
 
             # Right column: Feedback and guidelines (25% width)
             with gr.Column(scale=1):
+                persona_selector = gr.Dropdown(
+                    choices=customer_persona_choices(),
+                    value=DEFAULT_CUSTOMER_PERSONA_ID,
+                    label="🎭 Customer Persona",
+                    info="Choose a tone and scenario before starting the conversation.",
+                )
+                persona_description = gr.Markdown(describe_customer_persona(DEFAULT_CUSTOMER_PERSONA_ID))
+
                 # Render the feedback display at the top of the sidebar
                 feedback_display.render()
 
@@ -537,9 +578,18 @@ def create_chat_interface() -> gr.Blocks:
                 gr.Markdown("### 📋 Chat Guidelines")
                 gr.Markdown(
                     """
-                The AI acts as a customer complaining about an ACME product. Try to resolve the customer's issue.
+                Choose a persona before the first message, then try to resolve that customer's issue.
                 You can type messages, upload images/videos, or record audio.
                 """
+                )
+
+                persona_selector.change(
+                    fn=lambda persona_id: (
+                        persona_id,
+                        describe_customer_persona(persona_id),
+                    ),
+                    inputs=persona_selector,
+                    outputs=[persona_state, persona_description],
                 )
 
                 gr.Markdown("### 🔒 Content Moderation")
