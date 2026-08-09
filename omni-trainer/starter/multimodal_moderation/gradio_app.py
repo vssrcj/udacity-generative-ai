@@ -49,22 +49,24 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 # Maps content types to their FastAPI backend endpoints and safety flags.
 # This configuration determines which API endpoint to call for each content type
 # and which flags indicate unsafe content.
+EXTENDED_SAFETY_FLAGS = ["contains_hate_speech", "is_spam", "contains_misinformation"]
+
 MODERATION_CONFIG = {
     "text": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_text",
-        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii"],
+        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii", *EXTENDED_SAFETY_FLAGS],
     },
     "image": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_image_file",
-        "unsafe_flags": ["contains_pii", "is_disturbing", "is_low_quality"],
+        "unsafe_flags": ["contains_pii", "is_disturbing", "is_low_quality", *EXTENDED_SAFETY_FLAGS],
     },
     "video": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_video_file",
-        "unsafe_flags": ["contains_pii", "is_disturbing", "is_low_quality"],
+        "unsafe_flags": ["contains_pii", "is_disturbing", "is_low_quality", *EXTENDED_SAFETY_FLAGS],
     },
     "audio": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_audio_file",
-        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii"],
+        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii", *EXTENDED_SAFETY_FLAGS],
     },
 }
 
@@ -414,6 +416,9 @@ def create_chat_interface() -> gr.Blocks:
                 - Inappropriate content
                 - Personally identifiable information
                 - Unprofessional language
+                - Hate speech
+                - Spam or scams
+                - Misinformation
                 """
                 )
 

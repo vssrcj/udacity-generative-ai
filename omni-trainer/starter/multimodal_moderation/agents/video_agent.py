@@ -23,9 +23,17 @@ Detect if:
 - a significant portion of the video is of low quality (low-resolution, blurry,
   pixelated, underexposed, overexposed, etc.). Ignore low-quality portions of the video if
   they are not make up the majority of the video.
+- the video communicates hate speech through speech, visible text, symbols, or depictions that attack, threaten,
+  or demean people based on protected characteristics; set contains_hate_speech accordingly
+- the video contains spam, including unsolicited promotional, scam, or deceptive messaging; set is_spam accordingly
+- the video presents a clearly false or materially misleading factual claim as true; set contains_misinformation
+  accordingly
+
+Do not treat ordinary branding, relevant product information, opinions, or unverifiable claims as spam or
+misinformation. Base every positive flag on specific audible or visible evidence.
 
 OUTPUT
-Provide a detailed rationale for your choices.
+Set every moderation flag and provide a detailed rationale that identifies evidence for each positive flag.
 """
 
 
@@ -35,11 +43,7 @@ video_moderation_agent = Agent(
 )
 
 
-async def moderate_video(
-    model_choice: ModelChoice,
-    video_source: bytes,
-    media_type: str
-) -> VideoModerationResult:
+async def moderate_video(model_choice: ModelChoice, video_source: bytes, media_type: str) -> VideoModerationResult:
 
     video_input = BinaryContent(data=video_source, media_type=media_type)
 

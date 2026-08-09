@@ -22,10 +22,19 @@ Detect if:
 - the tone of the message is unfriendly
 - the tone of the message is unprofessional
 - the message contains any personally-identifiable information (PII)
+- the message contains hate speech that attacks, threatens, or demeans people based on protected characteristics;
+  set contains_hate_speech accordingly
+- the message is spam, including unsolicited, repetitive, irrelevant, deceptive, promotional, or scam content;
+  set is_spam accordingly
+- the message contains misinformation: a clearly false or materially misleading factual claim presented as true;
+  set contains_misinformation accordingly
+
+Do not flag ordinary opinions, uncertainty, good-faith mistakes, normal product information, or relevant customer-service
+offers as misinformation or spam. Base every positive flag on specific evidence in the message.
 </instructions>
 
 <output>
-Provide a detailed rationale for your choices as well as a confidence score between 0 and 1 on your assessment.
+Set every moderation flag and provide a detailed rationale that identifies evidence for each positive flag.
 </output>
 """
 

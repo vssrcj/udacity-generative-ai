@@ -22,10 +22,17 @@ Detect if:
 - the image contains a person, a part of a person, or any other personally-identifiable information (PII). If yes, set
     contains_pii to True.
 - the image is of low quality (blurry, pixelated, underexposed, overexposed, etc.)
+- the image communicates hate speech through visible text, symbols, or depictions that attack, threaten, or demean
+  people based on protected characteristics; set contains_hate_speech accordingly
+- the image contains spam, including unsolicited promotional, scam, or deceptive messaging; set is_spam accordingly
+- the image presents a clearly false or materially misleading factual claim as true; set contains_misinformation
+  accordingly
 
+Do not treat ordinary branding, relevant product information, opinions, or unverifiable claims as spam or
+misinformation. Base every positive flag on specific visible evidence.
 
 OUTPUT
-Provide a detailed rationale for your choices.
+Set every moderation flag and provide a detailed rationale that identifies evidence for each positive flag.
 """
 
 image_moderation_agent = Agent(
