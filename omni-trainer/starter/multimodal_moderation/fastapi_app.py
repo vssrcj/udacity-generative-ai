@@ -14,6 +14,7 @@ from multimodal_moderation.agents.text_agent import moderate_text
 from multimodal_moderation.agents.image_agent import moderate_image
 from multimodal_moderation.agents.video_agent import moderate_video
 from multimodal_moderation.agents.audio_agent import moderate_audio
+from multimodal_moderation.analytics import AnalyticsSummary, analytics_store
 
 
 # Standard auth scheme using -H "Authorization: Bearer <api_key>" header.
@@ -42,28 +43,41 @@ default_model_choice = get_default_model_choice()
 
 @app.post("/api/v1/moderate_text", response_model=TextModerationResult)
 async def moderate_text_endpoint(request: TextRequest):
-    return await moderate_text(default_model_choice, request.text)
+    result = await moderate_text(default_model_choice, request.text)
+    analytics_store.record("text", result)
+    return result
 
 
 @app.post("/api/v1/moderate_image_file", response_model=ImageModerationResult)
 async def moderate_image_file_endpoint(file: UploadFile = File(...)):
     file_bytes = await file.read()
     mime_type = detect_file_type(file_bytes, context=file.filename or "image file")
-    return await moderate_image(default_model_choice, file_bytes, mime_type)
+    result = await moderate_image(default_model_choice, file_bytes, mime_type)
+    analytics_store.record("image", result)
+    return result
 
 
 @app.post("/api/v1/moderate_video_file", response_model=VideoModerationResult)
 async def moderate_video_file_endpoint(file: UploadFile = File(...)):
     file_bytes = await file.read()
     mime_type = detect_file_type(file_bytes, context=file.filename or "video file")
-    return await moderate_video(default_model_choice, file_bytes, mime_type)
+    result = await moderate_video(default_model_choice, file_bytes, mime_type)
+    analytics_store.record("video", result)
+    return result
 
 
 @app.post("/api/v1/moderate_audio_file", response_model=AudioModerationResult)
 async def moderate_audio_file_endpoint(file: UploadFile = File(...)):
     file_bytes = await file.read()
     mime_type = detect_file_type(file_bytes, context=file.filename or "audio file")
-    return await moderate_audio(default_model_choice, file_bytes, mime_type)
+    result = await moderate_audio(default_model_choice, file_bytes, mime_type)
+    analytics_store.record("audio", result)
+    return result
+
+
+@app.get("/api/v1/analytics/summary", response_model=AnalyticsSummary)
+async def analytics_summary_endpoint():
+    return analytics_store.summary()
 
 
 @app.get("/api/v1/health")

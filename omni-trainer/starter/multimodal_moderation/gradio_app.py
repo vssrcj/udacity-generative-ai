@@ -21,6 +21,7 @@ import os
 import requests
 import gradio as gr
 import uuid
+from html import escape
 from pathlib import Path
 from typing import List, Tuple, Any
 from pydantic_ai.messages import BinaryContent
@@ -50,6 +51,7 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 # This configuration determines which API endpoint to call for each content type
 # and which flags indicate unsafe content.
 EXTENDED_SAFETY_FLAGS = ["contains_hate_speech", "is_spam", "contains_misinformation"]
+ANALYTICS_ENDPOINT = f"{API_BASE_URL}/api/v1/analytics/summary"
 
 MODERATION_CONFIG = {
     "text": {
@@ -69,6 +71,137 @@ MODERATION_CONFIG = {
         "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii", *EXTENDED_SAFETY_FLAGS],
     },
 }
+
+
+def _display_label(value: str) -> str:
+    return value.replace("contains_", "").replace("is_", "").replace("_", " ").title()
+
+
+def _render_analytics_dashboard(summary: dict[str, Any]) -> str:
+    modality_rows = []
+    for content_type in ("text", "image", "video", "audio"):
+        stats = summary.get("by_content_type", {}).get(content_type, {})
+        total = int(stats.get("total", 0))
+        flagged = int(stats.get("flagged", 0))
+        modality_rows.append(
+            f"""
+            <div class="analytics-row">
+                <div class="analytics-row-label">
+                    <span>{escape(content_type.title())}</span>
+                    <strong>{flagged} / {total} flagged</strong>
+                </div>
+                <meter min="0" max="{max(total, 1)}" value="{flagged}">{flagged} of {total}</meter>
+            </div>
+            """
+        )
+
+    positive_flags = [(flag, int(count)) for flag, count in summary.get("by_flag", {}).items() if int(count) > 0]
+    max_flag_count = max((count for _, count in positive_flags), default=1)
+    if positive_flags:
+        flag_rows = [
+            f"""
+            <div class="analytics-row">
+                <div class="analytics-row-label">
+                    <span>{escape(_display_label(flag))}</span>
+                    <strong>{count}</strong>
+                </div>
+                <progress max="{max_flag_count}" value="{count}">{count}</progress>
+            </div>
+            """
+            for flag, count in sorted(positive_flags, key=lambda item: (-item[1], item[0]))
+        ]
+    else:
+        flag_rows = ['<p class="analytics-empty">No moderation flags have been triggered yet.</p>']
+
+    recent_events = summary.get("recent_flagged", [])
+    if recent_events:
+        recent_rows = [
+            f"""
+            <tr>
+                <td>{escape(str(event.get("timestamp", "")).replace("T", " ")[:19])} UTC</td>
+                <td>{escape(str(event.get("content_type", "")).title())}</td>
+                <td>{escape(", ".join(_display_label(flag) for flag in event.get("flags", [])))}</td>
+            </tr>
+            """
+            for event in recent_events[:10]
+        ]
+        recent_content = f"""
+            <div class="analytics-table-wrap">
+                <table>
+                    <thead><tr><th>Time</th><th>Modality</th><th>Triggered flags</th></tr></thead>
+                    <tbody>{''.join(recent_rows)}</tbody>
+                </table>
+            </div>
+        """
+    else:
+        recent_content = '<p class="analytics-empty">No flagged events have been recorded yet.</p>'
+
+    return f"""
+    <style>
+        .analytics-dashboard {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }}
+        .analytics-panel {{ border: 1px solid var(--border-color-primary); border-radius: var(--radius-lg); padding: 1rem; background: var(--block-background-fill); }}
+        .analytics-panel h3 {{ margin: 0 0 0.75rem; }}
+        .analytics-row {{ margin-bottom: 0.75rem; }}
+        .analytics-row:last-child {{ margin-bottom: 0; }}
+        .analytics-row-label {{ display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.25rem; }}
+        .analytics-row-label strong {{ font-weight: 500; }}
+        .analytics-row meter, .analytics-row progress {{ width: 100%; accent-color: var(--primary-500); }}
+        .analytics-recent {{ grid-column: 1 / -1; }}
+        .analytics-table-wrap {{ overflow-x: auto; }}
+        .analytics-table-wrap table {{ width: 100%; border-collapse: collapse; }}
+        .analytics-table-wrap th, .analytics-table-wrap td {{ padding: 0.5rem; text-align: left; border-bottom: 1px solid var(--border-color-primary); }}
+        .analytics-empty {{ color: var(--body-text-color-subdued); margin: 0; }}
+    </style>
+    <section class="analytics-dashboard" aria-label="Moderation analytics">
+        <div class="analytics-panel">
+            <h3>Flagged by modality</h3>
+            {''.join(modality_rows)}
+        </div>
+        <div class="analytics-panel">
+            <h3>Triggered flags</h3>
+            {''.join(flag_rows)}
+        </div>
+        <div class="analytics-panel analytics-recent">
+            <h3>Recent flagged events</h3>
+            {recent_content}
+        </div>
+    </section>
+    """
+
+
+def load_analytics_dashboard() -> Tuple[int, int, int, str, str, str]:
+    """Fetch the latest aggregate moderation analytics from the FastAPI backend."""
+    try:
+        response = requests.get(
+            ANALYTICS_ENDPOINT,
+            headers={"Authorization": f"Bearer {USER_API_KEY}"},
+            timeout=10,
+        )
+        if not response.ok:
+            raise RuntimeError(f"Analytics backend returned HTTP {response.status_code}")
+
+        summary = response.json()
+        generated_at = str(summary.get("generated_at", "")).replace("T", " ")[:19]
+        status = f"Last refreshed: {generated_at} UTC. Counts reset when the backend restarts."
+        return (
+            int(summary["total_requests"]),
+            int(summary["flagged_requests"]),
+            int(summary["safe_requests"]),
+            f"{float(summary['flag_rate']):.1%}",
+            _render_analytics_dashboard(summary),
+            status,
+        )
+    except (requests.RequestException, RuntimeError, KeyError, TypeError, ValueError) as exc:
+        logger.warning("Unable to load moderation analytics: %s", exc)
+        empty_summary = {"by_content_type": {}, "by_flag": {}, "recent_flagged": []}
+        return (
+            0,
+            0,
+            0,
+            "0.0%",
+            _render_analytics_dashboard(empty_summary),
+            "Analytics are temporarily unavailable. Start the FastAPI backend and refresh.",
+        )
 
 
 def _call_text_moderation(text: str, span: trace.Span) -> Tuple[dict[str, Any], str, str, str]:
@@ -421,6 +554,35 @@ def create_chat_interface() -> gr.Blocks:
                 - Misinformation
                 """
                 )
+
+        with gr.Accordion("📊 Moderation Analytics", open=False):
+            gr.Markdown(
+                "Aggregate outcomes from the moderation backend. Raw messages, media, and rationales are not stored."
+            )
+            refresh_analytics = gr.Button("Refresh analytics", variant="secondary")
+
+            with gr.Row():
+                total_requests = gr.Number(label="Total moderated", value=0, precision=0, interactive=False)
+                flagged_requests = gr.Number(label="Flagged", value=0, precision=0, interactive=False)
+                safe_requests = gr.Number(label="Passed", value=0, precision=0, interactive=False)
+                flag_rate = gr.Textbox(label="Flag rate", value="0.0%", interactive=False)
+
+            analytics_dashboard = gr.HTML(
+                value=_render_analytics_dashboard({"by_content_type": {}, "by_flag": {}, "recent_flagged": []})
+            )
+            analytics_status = gr.Markdown("Analytics will load from the backend when the page opens.")
+
+        analytics_outputs = [
+            total_requests,
+            flagged_requests,
+            safe_requests,
+            flag_rate,
+            analytics_dashboard,
+            analytics_status,
+        ]
+
+        refresh_analytics.click(fn=load_analytics_dashboard, outputs=analytics_outputs)
+        demo.load(fn=load_analytics_dashboard, outputs=analytics_outputs)
 
         # Wire up the end conversation button
         end_button.click(fn=chat_session.end_conversation, outputs=end_status).then(
