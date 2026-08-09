@@ -1,0 +1,14 @@
+[
+  {
+    "role": "user",
+    "metadata": null,
+    "content": "I understand your Power Widget Pro has stopped working. I can offer you a replacement \u2014 would that work for you?",
+    "options": null
+  },
+  {
+    "role": "assistant",
+    "metadata": null,
+    "content": "A replacement is obviously the long-term solution, but that doesn't help me with my presentation in two hours. Do you have a software bypass or a temporary configuration workaround I can use to get this unit functional *today*? \n\nAlso, how exactly do you plan to expedite that replacement, and when will it arrive? I don't have time for a standard 3-5 day shipping window.",
+    "options": null
+  }
+]
