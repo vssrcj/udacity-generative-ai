@@ -1,4 +1,3 @@
-from typing import Literal
 from pydantic import BaseModel, Field
 
 
@@ -32,12 +31,11 @@ class VideoModerationResult(ModerationResult):
     is_low_quality: bool = Field(description="Whether the video is low quality")
 
 
-# TODO: Create AudioModerationResult class that inherits from ModerationResult and contains:
-#   - transcription: str to contain the transcription of the audio
-#   - contains_pii: bool to contain a flag for whether the audio contains any personally-identifiable
-#       information (PII) such as names, addresses, phone numbers
-#   - is_unfriendly: bool to contain a flag for whether unfriendly tone or content was detected
-#   - is_unprofessional: bool to contain a flag for whether unprofessional tone or content was detected
 class AudioModerationResult(ModerationResult):
 
-    ...  # Replace with your implementation
+    transcription: str = Field(description="Transcription of the audio content")
+    contains_pii: bool = Field(
+        description="Whether the audio contains any personally-identifiable information (PII)"
+    )
+    is_unfriendly: bool = Field(description="Whether unfriendly tone or content was detected")
+    is_unprofessional: bool = Field(description="Whether unprofessional tone or content was detected")
