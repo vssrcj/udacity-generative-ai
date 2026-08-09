@@ -8,7 +8,7 @@
   {
     "role": "assistant",
     "metadata": null,
-    "content": "A replacement is obviously the long-term solution, but that doesn't help me with my presentation in two hours. Do you have a software bypass or a temporary configuration workaround I can use to get this unit functional *today*? \n\nAlso, how exactly do you plan to expedite that replacement, and when will it arrive? I don't have time for a standard 3-5 day shipping window.",
+    "content": "Look, a replacement is a last resort. I'm not interested in swapping out hardware if it's just a buggy firmware build. I\u2019ve already performed a hard factory reset and swapped the power delivery cables with known-good ones, and the intermittent drops persist. \n\nBefore we jump to an RMA, can you actually tell me what changed in the latest firmware update? I suspect there\u2019s a regression in the power management profile, but I haven't been able to roll back to the previous stable version to confirm.",
     "options": null
   }
 ]
